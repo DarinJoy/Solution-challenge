@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tool Rental | Smart Crop Market</title>
+    <style>
+      :root {
+        --primary-color: #2ecc71;
+        --primary-dark: #27ae60;
+        --secondary-color: #34495e;
+        --accent-color: #e74c3c;
+        --text-color: #2c3e50;
+        --light-bg: #f8f9fa;
+        --card-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s ease;
+      }
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: var(--light-bg);
+        color: var(--text-color);
+        line-height: 1.6;
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: white;
+        padding: 1rem 2rem;
+        color: var(--text-color);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .navbar-left {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+      }
+
+      .navbar a {
+        color: var(--text-color);
+        text-decoration: none;
+        margin: 0 1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        transition: var(--transition);
+        font-weight: 500;
+        position: relative;
+      }
+
+      .navbar a::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 50%;
+        background-color: var(--primary-color);
+        transition: var(--transition);
+        transform: translateX(-50%);
+      }
+
+      .navbar a:hover::after {
+        width: 80%;
+      }
+
+      .navbar button {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: var(--transition);
+        box-shadow: 0 4px 6px rgba(46, 204, 113, 0.2);
+      }
+
+      .navbar button:hover {
+        background-color: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 8px rgba(46, 204, 113, 0.3);
+      }
+
+      .hero-section {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+          url("https://images.unsplash.com/photo-1592982537447-7440770cbfc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: white;
+        padding: 8rem 2rem;
+        text-align: center;
+        margin-bottom: 4rem;
+      }
+
+      .hero-section h1 {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+        font-weight: 800;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .hero-section p {
+        font-size: 1.2rem;
+        max-width: 800px;
+        margin: 0 auto;
+        opacity: 0.95;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin: 4rem 0;
+      }
+
+      .feature {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 16px;
+        box-shadow: var(--card-shadow);
+        transition: var(--transition);
+        cursor: pointer;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .feature::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: var(--primary-color);
+        transform: scaleX(0);
+        transition: var(--transition);
+      }
+
+      .feature:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+      }
+
+      .feature:hover::before {
+        transform: scaleX(1);
+      }
+
+      .feature h3 {
+        margin-bottom: 1rem;
+        color: var(--secondary-color);
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+
+      .feature p {
+        color: #666;
+        margin-bottom: 1.5rem;
+      }
+
+      .feature button {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: var(--transition);
+        width: 100%;
+        box-shadow: 0 4px 6px rgba(46, 204, 113, 0.2);
+      }
+
+      .feature button:hover {
+        background-color: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 8px rgba(46, 204, 113, 0.3);
+      }
+
+      .footer {
+        background: var(--secondary-color);
+        color: white;
+        text-align: center;
+        padding: 2rem;
+        margin-top: 4rem;
+      }
+
+      /* Dark Mode */
+      .dark-mode {
+        background: #1a1a1a;
+        color: #fff;
+      }
+
+      .dark-mode .navbar {
+        background: #2d2d2d;
+      }
+
+      .dark-mode .navbar a {
+        color: #fff;
+      }
+
+      .dark-mode .feature {
+        background: #2d2d2d;
+      }
+
+      .dark-mode .feature h3 {
+        color: #fff;
+      }
+
+      .dark-mode .feature p {
+        color: #e0e0e0;
+      }
+
+      .tools-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+
+      .tool-card {
+        background-color: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: var(--card-shadow);
+        transition: var(--transition);
+      }
+
+      .tool-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+      }
+
+      .tool-card h3 {
+        color: var(--secondary-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .tool-card p {
+        color: #666;
+        margin: 0.5rem 0;
+      }
+
+      .tool-card button {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: var(--transition);
+        width: 100%;
+        margin-top: 1rem;
+      }
+
+      .tool-card button:hover {
+        background-color: var(--primary-dark);
+        transform: translateY(-2px);
+      }
+
+      .dark-mode .tool-card {
+        background: #2d2d2d;
+      }
+
+      .dark-mode .tool-card h3 {
+        color: #fff;
+      }
+
+      .dark-mode .tool-card p {
+        color: #e0e0e0;
+      }
+
+      @media (max-width: 768px) {
+        .hero-section h1 {
+          font-size: 2.5rem;
+        }
+
+        .navbar {
+          flex-direction: column;
+          padding: 1rem;
+        }
+
+        .navbar div:last-child {
+          margin-top: 1rem;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 0.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="navbar-left">
+        <strong style="font-size: 1.5rem; color: var(--primary-color)"
+          >KrushiSetu</strong
+        >
+      </div>
+      <div>
+        <a href="index.html">Home</a>
+        <a href="prices.html">Crop Prices</a>
+        <a href="rental.html">Rentals</a>
+        <a href="recommendation.html">Recommendations</a>
+        <button onclick="toggleDarkMode()">Dark Mode</button>
+      </div>
+    </div>
+
+    <div class="hero-section">
+      <h1>Farm Tool Rentals</h1>
+      <p>
+        Find and rent farming equipment from local farmers. Save money and share
+        resources with your community.
+      </p>
+    </div>
+
+    <div class="container">
+      <div class="features">
+        <div class="feature">
+          <h3>List Your Tool</h3>
+          <p>
+            Rent out your farming tools to others in need and earn extra income.
+          </p>
+          <button onclick="location.href='list_tool.html'">List a Tool</button>
+        </div>
+      </div>
+
+      <h2
+        style="
+          text-align: center;
+          margin: 2rem 0;
+          color: var(--secondary-color);
+        ">
+        Available Tools
+      </h2>
+      <div class="tools-grid" id="availableTools">
+        <!-- Tools will be dynamically loaded here -->
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>&copy; 2025 KrushiSetu. All rights reserved.</p>
+    </div>
+
+    <script>
+      function toggleDarkMode() {
+        document.body.classList.toggle("dark-mode");
+      }
+
+      function loadAvailableTools() {
+        const toolsGrid = document.getElementById("availableTools");
+        const tools = JSON.parse(localStorage.getItem("rentalTools")) || [];
+
+        if (tools.length === 0) {
+          toolsGrid.innerHTML =
+            "<p style='text-align: center; grid-column: 1/-1;'>No tools available for rent at the moment.</p>";
+          return;
+        }
+
+        toolsGrid.innerHTML = tools
+          .map(
+            (tool) => `
+          <div class="tool-card">
+            <h3>${tool.name}</h3>
+            <p><strong>Owner:</strong> ${tool.owner}</p>
+            <p><strong>Location:</strong> ${tool.location}</p>
+            <p><strong>Times Rented:</strong> ${tool.rentedCount}</p>
+            ${
+              tool.rentedCount > 0
+                ? `<button onclick="returnTool('${tool.name}')">Return Tool</button>`
+                : `<button onclick="rentTool('${tool.name}')">Rent Now</button>`
+            }
+          </div>
+        `
+          )
+          .join("");
+      }
+
+      function rentTool(toolName) {
+        const tools = JSON.parse(localStorage.getItem("rentalTools")) || [];
+        const toolIndex = tools.findIndex((t) => t.name === toolName);
+
+        if (toolIndex !== -1) {
+          tools[toolIndex].rentedCount++;
+          localStorage.setItem("rentalTools", JSON.stringify(tools));
+          alert("Tool rented successfully!");
+          loadAvailableTools(); // Refresh the display
+        }
+      }
+
+      function returnTool(toolName) {
+        const tools = JSON.parse(localStorage.getItem("rentalTools")) || [];
+        const toolIndex = tools.findIndex((t) => t.name === toolName);
+
+        if (toolIndex !== -1 && tools[toolIndex].rentedCount > 0) {
+          tools[toolIndex].rentedCount--;
+          localStorage.setItem("rentalTools", JSON.stringify(tools));
+          alert("Tool returned successfully!");
+          loadAvailableTools(); // Refresh the display
+        }
+      }
+
+      // Load tools when the page loads
+      document.addEventListener("DOMContentLoaded", loadAvailableTools);
+    </script>
+  </body>
+</html>

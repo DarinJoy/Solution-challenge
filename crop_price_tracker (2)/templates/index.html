@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FarmBuddy - Crop Price Tracker</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+          {
+            pageLanguage: "en",
+            includedLanguages: "hi,pa,gu,mr,ta,te,kn,bn",
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+          },
+          "google_translate_element"
+        );
+      }
+    </script>
+    <script
+      type="text/javascript"
+      src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <style>
+      .trend-body {
+        height: 400px;
+        padding: 20px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: relative;
+      }
+
+      .trend-card {
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 30px;
+      }
+
+      #priceChart {
+        width: 100% !important;
+        height: 100% !important;
+      }
+
+      .trend-header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .trend-header h3 {
+        color: #2e7d32;
+        margin-bottom: 10px;
+      }
+
+      .trend-header p {
+        color: #6c757d;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <div class="logo"><i class="fa-solid fa-leaf"></i> KrushiSetu</div>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#price-checker">Price Tracker</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="crop_recommendation.html">Crop</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#features">Features</a>
+            </li>
+          </ul>
+          <div id="google_translate_element" class="me-3"></div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <h1>Get Real-Time <span class="highlight">Crop Prices</span></h1>
+            <p class="lead">
+              Know your crop's worth with accurate market data. Make informed
+              decisions and maximize your profits with our price tracking
+              system.
+            </p>
+            <a href="#price-checker" class="btn btn-lg btn-primary"
+              >Check Prices Now</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features">
+      <div class="container">
+        <div class="section-header">
+          <h2>Why Use Our <span class="highlight">Price Tracker</span></h2>
+          <p>Tools designed to help farmers make better decisions</p>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="icon">
+                <i class="fa-solid fa-chart-line"></i>
+              </div>
+              <h3>Real-Time Prices</h3>
+              <p>
+                Get the latest market prices from official government sources,
+                updated daily.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="icon">
+                <i class="fa-solid fa-chart-area"></i>
+              </div>
+              <h3>Price Trends</h3>
+              <p>
+                Visualize price trends over time to identify the best selling
+                opportunities.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="icon">
+                <i class="fa-solid fa-map-location-dot"></i>
+              </div>
+              <h3>Market Comparison</h3>
+              <p>
+                Compare prices across different markets to find the best place
+                to sell.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Price Checker Section -->
+    <section id="price-checker" class="bg-light">
+      <div class="container">
+        <div class="section-header">
+          <h2>Check Current <span class="highlight">Crop Prices</span></h2>
+          <p>Enter your crop details to get the latest market prices</p>
+        </div>
+
+        <div class="price-form-container">
+          <form id="priceForm">
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label for="state" class="form-label">State</label>
+                <select class="form-select" id="state" name="state" required>
+                  <option value="" selected disabled>Select State</option>
+                  <!-- States will be populated by JavaScript -->
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label for="district" class="form-label">District</label>
+                <select
+                  class="form-select"
+                  id="district"
+                  name="district"
+                  required>
+                  <option value="" selected disabled>Select District</option>
+                  <!-- Districts will be populated by JavaScript -->
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label for="market" class="form-label">Market</label>
+                <select class="form-select" id="market" name="market" required>
+                  <option value="" selected disabled>Select Market</option>
+                  <!-- Markets will be populated by JavaScript -->
+                </select>
+              </div>
+            </div>
+            <div class="row g-3 mt-1">
+              <div class="col-md-4">
+                <label for="commodity" class="form-label">Commodity</label>
+                <select
+                  class="form-select"
+                  id="commodity"
+                  name="commodity"
+                  required>
+                  <option value="" selected disabled>Select Commodity</option>
+                  <!-- Commodities will be populated by JavaScript -->
+                </select>
+              </div>
+              <div class="col-md-3">
+                <label for="variety" class="form-label">Variety</label>
+                <select
+                  class="form-select"
+                  id="variety"
+                  name="variety"
+                  required>
+                  <option value="" selected disabled>Select Variety</option>
+                  <!-- Varieties will be populated by JavaScript -->
+                </select>
+              </div>
+              <div class="col-md-3">
+                <label for="grade" class="form-label">Grade</label>
+                <select class="form-select" id="grade" name="grade" required>
+                  <option value="" selected disabled>Select Grade</option>
+                  <!-- Grades will be populated by JavaScript -->
+                </select>
+              </div>
+              <div class="col-md-2">
+                <label for="arrival_date" class="form-label">Date</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="arrival_date"
+                  name="arrival_date"
+                  required />
+              </div>
+            </div>
+            <div class="row mt-4">
+              <div class="col-md-12 d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary btn-lg">
+                  <i class="fa-solid fa-magnifying-glass me-2"></i
+                  ><span>Get Prices</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Loading indicator -->
+        <div id="loading" class="text-center mt-4" style="display: none">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p class="mt-2">Fetching latest price data...</p>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results" class="mt-4" style="display: none">
+          <div class="row">
+            <div class="col-lg-10 mx-auto">
+              <div class="price-card">
+                <div class="price-header">
+                  <h3>Current Prices</h3>
+                  <p id="price-meta" class="mb-0">
+                    Prices for <span id="commodity-name">--</span> in
+                    <span id="market-name">--</span>
+                  </p>
+                </div>
+                <div class="price-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="price-box min-price">
+                        <h5>Minimum Price</h5>
+                        <h2 id="min-price">₹0</h2>
+                        <p>per Quintal</p>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="price-box modal-price">
+                        <h5>Modal Price</h5>
+                        <h2 id="modal-price">₹0</h2>
+                        <p>per Quintal</p>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="price-box max-price">
+                        <h5>Maximum Price</h5>
+                        <h2 id="max-price">₹0</h2>
+                        <p>per Quintal</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="trend-card mt-4">
+            <div class="trend-header">
+              <h3>Price Trends</h3>
+              <p>See how prices have changed over time</p>
+            </div>
+            <div class="trend-body">
+              <canvas id="priceChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Nearby Markets Comparison -->
+          <div class="nearby-markets-card mt-4">
+            <div class="nearby-header">
+              <h3>Nearby Market Prices</h3>
+              <p>Compare prices across different markets in your region</p>
+            </div>
+            <div class="nearby-body">
+              <div id="nearby-markets-table-container">
+                <table class="table table-striped table-hover">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Market</th>
+                      <th>District</th>
+                      <th>Min Price (₹)</th>
+                      <th>Modal Price (₹)</th>
+                      <th>Max Price (₹)</th>
+                      <th>Difference</th>
+                    </tr>
+                  </thead>
+                  <tbody id="nearby-markets-table-body">
+                    <!-- Will be populated by JavaScript -->
+                  </tbody>
+                </table>
+              </div>
+              <div
+                id="no-nearby-markets"
+                class="text-center p-4"
+                style="display: none">
+                <p class="text-muted">
+                  No nearby market data available for this selection.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- No Results Message -->
+        <div id="no-results" class="mt-4 text-center" style="display: none">
+          <div class="alert alert-info">
+            <i class="fa-solid fa-info-circle me-2"></i>
+            <span id="no-results-message"
+              >No price data found for your selection. Please try different
+              criteria.</span
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Common Crops Section -->
+    <section id="common-crops">
+      <div class="container">
+        <div class="section-header">
+          <h2>Explore <span class="highlight">Common Crops</span></h2>
+          <p>Quick access to price information for popular crops</p>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3 col-6 mb-4">
+            <div class="crop-card" data-crop="Rice">
+              <div class="icon">
+                <i class="fa-solid fa-seedling"></i>
+              </div>
+              <h4>Rice</h4>
+            </div>
+          </div>
+          <div class="col-md-3 col-6 mb-4">
+            <div class="crop-card" data-crop="Wheat">
+              <div class="icon">
+                <i class="fa-solid fa-wheat-awn"></i>
+              </div>
+              <h4>Wheat</h4>
+            </div>
+          </div>
+          <div class="col-md-3 col-6 mb-4">
+            <div class="crop-card" data-crop="Onion">
+              <div class="icon">
+                <i class="fa-solid fa-apple-whole"></i>
+              </div>
+              <h4>Onion</h4>
+            </div>
+          </div>
+          <div class="col-md-3 col-6 mb-4">
+            <div class="crop-card" data-crop="Potato">
+              <div class="icon">
+                <i class="fa-solid fa-carrot"></i>
+              </div>
+              <h4>Potato</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script src="/static/js/main.js"></script>
+  </body>
+</html>

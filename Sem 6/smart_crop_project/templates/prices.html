@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crop Prices | Smart Crop Market</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        transition: background 0.3s, color 0.3s;
+      }
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #4caf50;
+        padding: 15px;
+        color: white;
+        font-weight: bold;
+      }
+      .navbar a {
+        color: white;
+        text-decoration: none;
+        margin: 0 15px;
+        font-size: 16px;
+        transition: 0.3s;
+      }
+      .navbar a:hover {
+        text-decoration: underline;
+      }
+      .navbar button {
+        background: white;
+        color: #4caf50;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.3s;
+      }
+      .navbar button:hover {
+        background: #f0f0f0;
+      }
+      .container {
+        text-align: center;
+        padding: 30px;
+      }
+      .search-box {
+        padding: 12px;
+        width: 80%;
+        max-width: 400px;
+        margin: 20px auto;
+        display: block;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+      .crop-table {
+        width: 90%;
+        max-width: 700px;
+        margin: 20px auto;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      .crop-table th,
+      .crop-table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      .crop-table th {
+        background: #4caf50;
+        color: white;
+      }
+      .crop-table tbody tr:hover {
+        background: #f0f0f0;
+      }
+      .footer {
+        background: #4caf50;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        font-size: 14px;
+      }
+      /* Dark Mode */
+      .dark-mode {
+        background: #121212;
+        color: white;
+      }
+      .dark-mode .crop-table {
+        background: #1e1e1e;
+        color: white;
+      }
+      .dark-mode .crop-table th {
+        background: #2e7d32;
+      }
+      .dark-mode .crop-table tbody tr:hover {
+        background: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <div>🌾 Smart Crop Market</div>
+      <div>
+        <a href="index.html">Home</a>
+        <a href="prices.html">Crop Prices</a>
+        <a href="rental.html">Rentals</a>
+        <a href="recommendation.html">Recommendations</a>
+        <button onclick="toggleDarkMode()">Dark Mode</button>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>🌍 Live Crop Prices</h2>
+      <input
+        type="text"
+        class="search-box"
+        id="search"
+        placeholder="🔍 Search for a crop..."
+        onkeyup="filterCrops()" />
+      <table class="crop-table">
+        <thead>
+          <tr>
+            <th>Crop</th>
+            <th>Price (₹/kg)</th>
+          </tr>
+        </thead>
+        <tbody id="crop-data">
+          <tr>
+            <td>Wheat</td>
+            <td>₹30</td>
+          </tr>
+          <tr>
+            <td>Rice</td>
+            <td>₹45</td>
+          </tr>
+          <tr>
+            <td>Corn</td>
+            <td>₹25</td>
+          </tr>
+          <tr>
+            <td>Potato</td>
+            <td>₹20</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="footer">
+      <p>&copy; 2025 Smart Crop Market. All rights reserved.</p>
+    </div>
+
+    <script>
+      function toggleDarkMode() {
+        document.body.classList.toggle("dark-mode");
+      }
+
+      function filterCrops() {
+        let input = document.getElementById("search").value.toLowerCase();
+        let rows = document.querySelectorAll("#crop-data tr");
+
+        rows.forEach((row) => {
+          let crop = row.cells[0].textContent.toLowerCase();
+          row.style.display = crop.includes(input) ? "" : "none";
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,2022 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KrushiSetu - Advanced Farming Tools</title>
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+          {
+            pageLanguage: "en",
+            includedLanguages: "hi,pa,gu,mr,ta,te,kn,bn",
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false,
+          },
+          "google_translate_element"
+        );
+      }
+    </script>
+    <script
+      type="text/javascript"
+      src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <style>
+      :root {
+        --primary-color: #2ecc71;
+        --primary-dark: #27ae60;
+        --secondary-color: #34495e;
+        --accent-color: #e74c3c;
+        --text-color: #2c3e50;
+        --light-bg: #f8f9fa;
+        --card-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s ease;
+      }
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        margin: 0;
+        padding: 0;
+        transition: var(--transition);
+        background-color: var(--light-bg);
+        color: var(--text-color);
+        line-height: 1.6;
+      }
+
+      .navbar {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--primary-dark)
+        );
+        padding: 1rem 2rem;
+        color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .navbar-left {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+      }
+
+      .navbar a {
+        color: white;
+        text-decoration: none;
+        margin: 0 1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        transition: var(--transition);
+        font-weight: 500;
+        position: relative;
+      }
+
+      .navbar a:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .hero-section {
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+          url("https://images.unsplash.com/photo-1592982537447-7440770cbfc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: white;
+        padding: 6rem 2rem;
+        text-align: center;
+        margin-bottom: 4rem;
+      }
+
+      .hero-section h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1.5rem;
+        font-weight: 800;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .search-container {
+        background: white;
+        padding: 2rem;
+        border-radius: 16px;
+        box-shadow: var(--card-shadow);
+        margin-bottom: 3rem;
+        border: 2px solid var(--primary-color);
+      }
+
+      .product-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: var(--card-shadow);
+        transition: var(--transition);
+        cursor: pointer;
+        overflow: hidden;
+        height: 100%;
+        border: 1px solid #eee;
+      }
+
+      .product-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        border-color: var(--primary-color);
+      }
+
+      .product-image {
+        height: 200px;
+        object-fit: cover;
+        width: 100%;
+        transition: var(--transition);
+      }
+
+      .product-card:hover .product-image {
+        transform: scale(1.05);
+      }
+
+      .product-content {
+        padding: 1.5rem;
+      }
+
+      .product-content h5 {
+        color: var(--secondary-color);
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .product-content p {
+        color: #666;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+      }
+
+      .price-tag {
+        background: var(--primary-color);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: 600;
+      }
+
+      .category-btn {
+        background: none;
+        border: 2px solid var(--primary-color);
+        color: var(--primary-color);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        margin: 0.25rem;
+        transition: var(--transition);
+        font-weight: 500;
+      }
+
+      .category-btn:hover,
+      .category-btn.active {
+        background-color: var(--primary-color);
+        color: white;
+        transform: translateY(-2px);
+      }
+
+      .modal-content {
+        border-radius: 16px;
+        border: none;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .modal-header {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--primary-dark)
+        );
+        color: white;
+        border-radius: 16px 16px 0 0;
+        padding: 1.5rem;
+      }
+
+      .modal-body {
+        padding: 2rem;
+      }
+
+      .video-container {
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0;
+        overflow: hidden;
+        margin-top: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .feature-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .feature-list li {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        align-items: center;
+      }
+
+      .feature-list li:last-child {
+        border-bottom: none;
+      }
+
+      .feature-list li i {
+        color: var(--primary-color);
+        margin-right: 0.5rem;
+      }
+
+      .pagination {
+        margin-top: 3rem;
+        justify-content: center;
+      }
+
+      .page-link {
+        color: var(--primary-color);
+        border: none;
+        margin: 0 0.25rem;
+        border-radius: 8px;
+        padding: 0.5rem 1rem;
+      }
+
+      .page-link:hover {
+        background-color: var(--primary-color);
+        color: white;
+      }
+
+      .page-item.active .page-link {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="navbar-left">
+        <div id="google_translate_element"></div>
+        <a href="/">Home</a>
+        <a href="/tools">Tools</a>
+        <a href="/market">Market</a>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container">
+        <h1>Advanced Farming Tools</h1>
+        <p>
+          Discover cutting-edge agricultural technology designed to
+          revolutionize your farming practices
+        </p>
+      </div>
+    </section>
+
+    <div class="container">
+      <!-- Search Section -->
+      <div class="search-container">
+        <div class="row">
+          <div class="col-md-8 mx-auto">
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="searchInput"
+                placeholder="Search for farming tools..." />
+              <button class="btn btn-primary" type="button">
+                <i class="fas fa-search"></i> Search
+              </button>
+            </div>
+            <div class="text-center">
+              <button class="category-btn active">All</button>
+              <button class="category-btn">Smart Irrigation</button>
+              <button class="category-btn">Automated Harvesting</button>
+              <button class="category-btn">Soil Analysis</button>
+              <button class="category-btn">Pest Control</button>
+              <button class="category-btn">Weather Monitoring</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="row g-4" id="productsGrid">
+        <!-- Product Card 1 -->
+        <div class="col-md-4">
+          <div
+            class="product-card"
+            data-bs-toggle="modal"
+            data-bs-target="#productModal1">
+            <img
+              src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="product-image"
+              alt="Smart Irrigation System" />
+            <div class="product-content">
+              <h5>Smart Irrigation System</h5>
+              <p>Automated water management for optimal crop growth</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price-tag">$299.99</span>
+                <button class="btn btn-outline-primary">Learn More</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Card 2 -->
+        <div class="col-md-4">
+          <div
+            class="product-card"
+            data-bs-toggle="modal"
+            data-bs-target="#productModal2">
+            <img
+              src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="product-image"
+              alt="Automated Harvester" />
+            <div class="product-content">
+              <h5>Automated Harvester</h5>
+              <p>Precision harvesting with AI technology</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price-tag">$1,499.99</span>
+                <button class="btn btn-outline-primary">Learn More</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Card 3 -->
+        <div class="col-md-4">
+          <div
+            class="product-card"
+            data-bs-toggle="modal"
+            data-bs-target="#productModal3">
+            <img
+              src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="product-image"
+              alt="Soil Analysis Kit" />
+            <div class="product-content">
+              <h5>Soil Analysis Kit</h5>
+              <p>Real-time soil health monitoring system</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price-tag">$199.99</span>
+                <button class="btn btn-outline-primary">Learn More</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Additional Products -->
+        <!-- Product Card 4 -->
+        <div class="col-md-4">
+          <div
+            class="product-card"
+            data-bs-toggle="modal"
+            data-bs-target="#productModal4">
+            <img
+              src="https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="product-image"
+              alt="Drone Sprayer" />
+            <div class="product-content">
+              <h5>Drone Sprayer</h5>
+              <p>Precision pesticide application with autonomous drones</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price-tag">$2,999.99</span>
+                <button class="btn btn-outline-primary">Learn More</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Card 5 -->
+        <div class="col-md-4">
+          <div
+            class="product-card"
+            data-bs-toggle="modal"
+            data-bs-target="#productModal5">
+            <img
+              src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="product-image"
+              alt="Smart Weather Station" />
+            <div class="product-content">
+              <h5>Smart Weather Station</h5>
+              <p>Real-time weather monitoring and forecasting system</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price-tag">$499.99</span>
+                <button class="btn btn-outline-primary">Learn More</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Card 6 -->
+        <div class="col-md-4">
+          <div
+            class="product-card"
+            data-bs-toggle="modal"
+            data-bs-target="#productModal6">
+            <img
+              src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="product-image"
+              alt="Automated Seeder" />
+            <div class="product-content">
+              <h5>Automated Seeder</h5>
+              <p>Precision seeding with variable rate technology</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price-tag">$3,499.99</span>
+                <button class="btn btn-outline-primary">Learn More</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Card 7 -->
+        <div class="col-md-4">
+          <div
+            class="product-card"
+            data-bs-toggle="modal"
+            data-bs-target="#productModal7">
+            <img
+              src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="product-image"
+              alt="Smart Fertilizer System" />
+            <div class="product-content">
+              <h5>Smart Fertilizer System</h5>
+              <p>Automated nutrient delivery based on soil analysis</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price-tag">$1,999.99</span>
+                <button class="btn btn-outline-primary">Learn More</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Card 8 -->
+        <div class="col-md-4">
+          <div
+            class="product-card"
+            data-bs-toggle="modal"
+            data-bs-target="#productModal8">
+            <img
+              src="https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="product-image"
+              alt="Crop Health Scanner" />
+            <div class="product-content">
+              <h5>Crop Health Scanner</h5>
+              <p>AI-powered disease and pest detection system</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price-tag">$899.99</span>
+                <button class="btn btn-outline-primary">Learn More</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Card 9 -->
+        <div class="col-md-4">
+          <div
+            class="product-card"
+            data-bs-toggle="modal"
+            data-bs-target="#productModal9">
+            <img
+              src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="product-image"
+              alt="Smart Greenhouse Controller" />
+            <div class="product-content">
+              <h5>Smart Greenhouse Controller</h5>
+              <p>Automated climate control and monitoring system</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price-tag">$1,299.99</span>
+                <button class="btn btn-outline-primary">Learn More</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Card 10 -->
+        <div class="col-md-4">
+          <div
+            class="product-card"
+            data-bs-toggle="modal"
+            data-bs-target="#productModal10">
+            <img
+              src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="product-image"
+              alt="Automated Weed Control" />
+            <div class="product-content">
+              <h5>Automated Weed Control</h5>
+              <p>AI-powered weed detection and removal system</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price-tag">$2,499.99</span>
+                <button class="btn btn-outline-primary">Learn More</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Card 11 -->
+        <div class="col-md-4">
+          <div
+            class="product-card"
+            data-bs-toggle="modal"
+            data-bs-target="#productModal11">
+            <img
+              src="https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="product-image"
+              alt="Smart Storage System" />
+            <div class="product-content">
+              <h5>Smart Storage System</h5>
+              <p>Climate-controlled storage with inventory management</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price-tag">$4,999.99</span>
+                <button class="btn btn-outline-primary">Learn More</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Card 12 -->
+        <div class="col-md-4">
+          <div
+            class="product-card"
+            data-bs-toggle="modal"
+            data-bs-target="#productModal12">
+            <img
+              src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="product-image"
+              alt="Automated Milking System" />
+            <div class="product-content">
+              <h5>Automated Milking System</h5>
+              <p>Robotic milking with health monitoring</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price-tag">$5,999.99</span>
+                <button class="btn btn-outline-primary">Learn More</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Card 13 -->
+        <div class="col-md-4">
+          <div
+            class="product-card"
+            data-bs-toggle="modal"
+            data-bs-target="#productModal13">
+            <img
+              src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="product-image"
+              alt="Smart Feed Dispenser" />
+            <div class="product-content">
+              <h5>Smart Feed Dispenser</h5>
+              <p>Automated feed management for livestock</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price-tag">$1,799.99</span>
+                <button class="btn btn-outline-primary">Learn More</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Card 14 -->
+        <div class="col-md-4">
+          <div
+            class="product-card"
+            data-bs-toggle="modal"
+            data-bs-target="#productModal14">
+            <img
+              src="https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="product-image"
+              alt="Automated Egg Collector" />
+            <div class="product-content">
+              <h5>Automated Egg Collector</h5>
+              <p>Robotic egg collection and sorting system</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price-tag">$2,299.99</span>
+                <button class="btn btn-outline-primary">Learn More</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Card 15 -->
+        <div class="col-md-4">
+          <div
+            class="product-card"
+            data-bs-toggle="modal"
+            data-bs-target="#productModal15">
+            <img
+              src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="product-image"
+              alt="Smart Compost System" />
+            <div class="product-content">
+              <h5>Smart Compost System</h5>
+              <p>Automated composting with temperature control</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price-tag">$799.99</span>
+                <button class="btn btn-outline-primary">Learn More</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Card 16 -->
+        <div class="col-md-4">
+          <div
+            class="product-card"
+            data-bs-toggle="modal"
+            data-bs-target="#productModal16">
+            <img
+              src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="product-image"
+              alt="Automated Pruning System" />
+            <div class="product-content">
+              <h5>Automated Pruning System</h5>
+              <p>AI-powered plant pruning and maintenance</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price-tag">$3,299.99</span>
+                <button class="btn btn-outline-primary">Learn More</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Card 17 -->
+        <div class="col-md-4">
+          <div
+            class="product-card"
+            data-bs-toggle="modal"
+            data-bs-target="#productModal17">
+            <img
+              src="https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="product-image"
+              alt="Smart Irrigation Controller" />
+            <div class="product-content">
+              <h5>Smart Irrigation Controller</h5>
+              <p>Zone-based irrigation with moisture sensors</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price-tag">$449.99</span>
+                <button class="btn btn-outline-primary">Learn More</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Card 18 -->
+        <div class="col-md-4">
+          <div
+            class="product-card"
+            data-bs-toggle="modal"
+            data-bs-target="#productModal18">
+            <img
+              src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="product-image"
+              alt="Automated Pollination System" />
+            <div class="product-content">
+              <h5>Automated Pollination System</h5>
+              <p>Drone-based crop pollination system</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price-tag">$2,799.99</span>
+                <button class="btn btn-outline-primary">Learn More</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Card 19 -->
+        <div class="col-md-4">
+          <div
+            class="product-card"
+            data-bs-toggle="modal"
+            data-bs-target="#productModal19">
+            <img
+              src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="product-image"
+              alt="Smart Pest Trap" />
+            <div class="product-content">
+              <h5>Smart Pest Trap</h5>
+              <p>AI-powered pest detection and trapping system</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price-tag">$299.99</span>
+                <button class="btn btn-outline-primary">Learn More</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Card 20 -->
+        <div class="col-md-4">
+          <div
+            class="product-card"
+            data-bs-toggle="modal"
+            data-bs-target="#productModal20">
+            <img
+              src="https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="product-image"
+              alt="Automated Sorting System" />
+            <div class="product-content">
+              <h5>Automated Sorting System</h5>
+              <p>AI-powered produce sorting and grading</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price-tag">$4,299.99</span>
+                <button class="btn btn-outline-primary">Learn More</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination">
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1">Previous</a>
+          </li>
+          <li class="page-item active"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Product Modals -->
+    <!-- Product Modal 1 -->
+    <div class="modal fade" id="productModal1" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Smart Irrigation System</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <img
+              src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="img-fluid mb-4"
+              alt="Smart Irrigation System" />
+            <h6>Product Description</h6>
+            <p>
+              The Smart Irrigation System is a revolutionary tool that uses
+              advanced sensors and AI algorithms to optimize water usage in your
+              farm. It automatically adjusts watering schedules based on weather
+              conditions, soil moisture, and plant needs.
+            </p>
+
+            <h6>Key Features</h6>
+            <ul>
+              <li>Weather-based scheduling</li>
+              <li>Soil moisture sensors</li>
+              <li>Mobile app control</li>
+              <li>Water usage analytics</li>
+            </ul>
+
+            <h6>Advantages Over Traditional Methods</h6>
+            <ul>
+              <li>Reduces water waste by up to 50%</li>
+              <li>Prevents overwatering and underwatering</li>
+              <li>Remote monitoring and control</li>
+              <li>Data-driven decision making</li>
+            </ul>
+
+            <h6>How to Operate</h6>
+            <ol>
+              <li>Install the sensors in your field</li>
+              <li>Connect the system to your water source</li>
+              <li>Configure your crop types and requirements</li>
+              <li>Monitor through the mobile app</li>
+            </ol>
+
+            <h6>Video Tutorial</h6>
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/B7o_O7d8fAI?si=qRXWMHX1e3GBA6hm"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Modal 2 -->
+    <div class="modal fade" id="productModal2" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Automated Harvester</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <img
+              src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="img-fluid mb-4"
+              alt="Automated Harvester" />
+            <h6>Product Description</h6>
+            <p>
+              The Automated Harvester combines robotics and AI to efficiently
+              harvest crops with minimal human intervention. It uses computer
+              vision to identify ripe produce and precise mechanical arms to
+              harvest them.
+            </p>
+
+            <h6>Key Features</h6>
+            <ul>
+              <li>AI-powered crop recognition</li>
+              <li>Precision harvesting arms</li>
+              <li>Autonomous navigation</li>
+              <li>Real-time performance monitoring</li>
+            </ul>
+
+            <h6>Advantages Over Traditional Methods</h6>
+            <ul>
+              <li>24/7 harvesting capability</li>
+              <li>Reduced labor costs</li>
+              <li>Minimal crop damage</li>
+              <li>Consistent harvesting quality</li>
+            </ul>
+
+            <h6>How to Operate</h6>
+            <ol>
+              <li>Program the harvesting parameters</li>
+              <li>Set up the field boundaries</li>
+              <li>Activate autonomous mode</li>
+              <li>Monitor through control panel</li>
+            </ol>
+
+            <h6>Video Tutorial</h6>
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/B19D_qjqds4?si=_ey0L1DTz6C1pj34"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Modal 3 -->
+    <div class="modal fade" id="productModal3" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Soil Analysis Kit</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <img
+              src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="img-fluid mb-4"
+              alt="Soil Analysis Kit" />
+            <h6>Product Description</h6>
+            <p>
+              The Soil Analysis Kit provides real-time monitoring of soil health
+              parameters, helping farmers make informed decisions about
+              fertilization and crop management.
+            </p>
+
+            <h6>Key Features</h6>
+            <ul>
+              <li>pH level monitoring</li>
+              <li>Nutrient content analysis</li>
+              <li>Soil temperature tracking</li>
+              <li>Data visualization dashboard</li>
+            </ul>
+
+            <h6>Advantages Over Traditional Methods</h6>
+            <ul>
+              <li>Instant soil health feedback</li>
+              <li>Precise nutrient management</li>
+              <li>Historical data tracking</li>
+              <li>Cost-effective soil testing</li>
+            </ul>
+
+            <h6>How to Operate</h6>
+            <ol>
+              <li>Insert sensors into soil</li>
+              <li>Connect to mobile app</li>
+              <li>Calibrate sensors</li>
+              <li>Monitor readings</li>
+            </ol>
+
+            <h6>Video Tutorial</h6>
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/K9LgbrkdVnY?si=2GxNbD1ZpLQ-fcY9"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Modal 4 -->
+    <div class="modal fade" id="productModal4" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Drone Sprayer</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <img
+              src="https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="img-fluid mb-4"
+              alt="Drone Sprayer" />
+            <h6>Product Description</h6>
+            <p>
+              The Drone Sprayer uses advanced sensors and AI algorithms to apply
+              pesticides with precision and efficiency. It automatically adjusts
+              the application rate based on crop type and pest pressure.
+            </p>
+
+            <h6>Key Features</h6>
+            <ul>
+              <li>Precision pesticide application</li>
+              <li>Autonomous drone operation</li>
+              <li>Weather-based scheduling</li>
+              <li>Data-driven decision making</li>
+            </ul>
+
+            <h6>Advantages Over Traditional Methods</h6>
+            <ul>
+              <li>Reduces chemical usage by up to 50%</li>
+              <li>Improves crop health and yield</li>
+              <li>Remote monitoring and control</li>
+              <li>Cost-effective pest management</li>
+            </ul>
+
+            <h6>How to Operate</h6>
+            <ol>
+              <li>Program the drone's flight path</li>
+              <li>Load the pesticide tank</li>
+              <li>Activate the application mode</li>
+              <li>Monitor the application process</li>
+            </ol>
+
+            <h6>Video Tutorial</h6>
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/QvX59SbI8RU"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Modal 5 -->
+    <div class="modal fade" id="productModal5" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Smart Weather Station</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <img
+              src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="img-fluid mb-4"
+              alt="Smart Weather Station" />
+            <h6>Product Description</h6>
+            <p>
+              The Smart Weather Station provides real-time weather data and
+              forecasts to help farmers make informed decisions about crop
+              management.
+            </p>
+
+            <h6>Key Features</h6>
+            <ul>
+              <li>Real-time weather monitoring</li>
+              <li>Weather forecast prediction</li>
+              <li>Data visualization dashboard</li>
+              <li>Mobile app access</li>
+            </ul>
+
+            <h6>Advantages Over Traditional Methods</h6>
+            <ul>
+              <li>Improves crop yield and quality</li>
+              <li>Reduces risk of crop damage</li>
+              <li>Cost-effective weather monitoring</li>
+              <li>Remote access and control</li>
+            </ul>
+
+            <h6>How to Operate</h6>
+            <ol>
+              <li>Install the weather station in your field</li>
+              <li>Connect the station to your mobile device</li>
+              <li>Configure the data collection frequency</li>
+              <li>Monitor weather conditions</li>
+            </ol>
+
+            <h6>Video Tutorial</h6>
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/0ayj5YsfC4k"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Modal 6 -->
+    <div class="modal fade" id="productModal6" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Automated Seeder</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <img
+              src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="img-fluid mb-4"
+              alt="Automated Seeder" />
+            <h6>Product Description</h6>
+            <p>
+              The Automated Seeder uses variable rate technology to plant seeds
+              with precision and efficiency. It automatically adjusts the
+              planting depth and spacing based on crop type and soil conditions.
+            </p>
+
+            <h6>Key Features</h6>
+            <ul>
+              <li>Precision seeding</li>
+              <li>Variable rate technology</li>
+              <li>Autonomous operation</li>
+              <li>Data-driven decision making</li>
+            </ul>
+
+            <h6>Advantages Over Traditional Methods</h6>
+            <ul>
+              <li>Improves crop yield and uniformity</li>
+              <li>Reduces labor costs</li>
+              <li>Cost-effective seeding</li>
+              <li>Remote monitoring and control</li>
+            </ul>
+
+            <h6>How to Operate</h6>
+            <ol>
+              <li>Program the seeder's settings</li>
+              <li>Load the seed hopper</li>
+              <li>Activate the autonomous mode</li>
+              <li>Monitor the planting process</li>
+            </ol>
+
+            <h6>Video Tutorial</h6>
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/6Z66YYsHpD4"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Modal 7 -->
+    <div class="modal fade" id="productModal7" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Smart Fertilizer System</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <img
+              src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="img-fluid mb-4"
+              alt="Smart Fertilizer System" />
+            <h6>Product Description</h6>
+            <p>
+              The Smart Fertilizer System uses soil analysis data to deliver
+              nutrients with precision and efficiency. It automatically adjusts
+              the fertilizer application rate based on crop needs and soil
+              conditions.
+            </p>
+
+            <h6>Key Features</h6>
+            <ul>
+              <li>Precision nutrient delivery</li>
+              <li>Autonomous operation</li>
+              <li>Data-driven decision making</li>
+              <li>Remote monitoring and control</li>
+            </ul>
+
+            <h6>Advantages Over Traditional Methods</h6>
+            <ul>
+              <li>Improves crop yield and quality</li>
+              <li>Reduces chemical usage</li>
+              <li>Cost-effective fertilization</li>
+              <li>Precise nutrient management</li>
+            </ul>
+
+            <h6>How to Operate</h6>
+            <ol>
+              <li>Connect the system to your mobile device</li>
+              <li>Load the fertilizer tank</li>
+              <li>Activate the autonomous mode</li>
+              <li>Monitor the application process</li>
+            </ol>
+
+            <h6>Video Tutorial</h6>
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/example"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Modal 8 -->
+    <div class="modal fade" id="productModal8" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Crop Health Scanner</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <img
+              src="https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="img-fluid mb-4"
+              alt="Crop Health Scanner" />
+            <h6>Product Description</h6>
+            <p>
+              The Crop Health Scanner uses AI algorithms to detect diseases and
+              pests in crops. It provides real-time feedback and alerts to help
+              farmers make informed decisions about crop management.
+            </p>
+
+            <h6>Key Features</h6>
+            <ul>
+              <li>AI-powered disease detection</li>
+              <li>Real-time pest detection</li>
+              <li>Data visualization dashboard</li>
+              <li>Mobile app access</li>
+            </ul>
+
+            <h6>Advantages Over Traditional Methods</h6>
+            <ul>
+              <li>Improves crop health and yield</li>
+              <li>Reduces chemical usage</li>
+              <li>Cost-effective pest management</li>
+              <li>Remote access and control</li>
+            </ul>
+
+            <h6>How to Operate</h6>
+            <ol>
+              <li>Install the scanner in your field</li>
+              <li>Connect the scanner to your mobile device</li>
+              <li>Configure the data collection frequency</li>
+              <li>Monitor crop health</li>
+            </ol>
+
+            <h6>Video Tutorial</h6>
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/example"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Modal 9 -->
+    <div class="modal fade" id="productModal9" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Smart Greenhouse Controller</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <img
+              src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="img-fluid mb-4"
+              alt="Smart Greenhouse Controller" />
+            <h6>Product Description</h6>
+            <p>
+              The Smart Greenhouse Controller uses AI algorithms to control the
+              climate in a greenhouse. It automatically adjusts temperature,
+              humidity, and light levels based on crop needs and environmental
+              conditions.
+            </p>
+
+            <h6>Key Features</h6>
+            <ul>
+              <li>AI-powered climate control</li>
+              <li>Autonomous operation</li>
+              <li>Data-driven decision making</li>
+              <li>Remote monitoring and control</li>
+            </ul>
+
+            <h6>Advantages Over Traditional Methods</h6>
+            <ul>
+              <li>Improves crop yield and quality</li>
+              <li>Reduces labor costs</li>
+              <li>Cost-effective climate control</li>
+              <li>Precise nutrient management</li>
+            </ul>
+
+            <h6>How to Operate</h6>
+            <ol>
+              <li>Install the controller in your greenhouse</li>
+              <li>Connect the controller to your mobile device</li>
+              <li>Configure the climate control settings</li>
+              <li>Monitor the greenhouse climate</li>
+            </ol>
+
+            <h6>Video Tutorial</h6>
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/example"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Modal 10 -->
+    <div class="modal fade" id="productModal10" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Automated Weed Control</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <img
+              src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="img-fluid mb-4"
+              alt="Automated Weed Control" />
+            <h6>Product Description</h6>
+            <p>
+              The Automated Weed Control system uses AI algorithms to detect and
+              remove weeds from crops. It provides real-time feedback and alerts
+              to help farmers make informed decisions about weed management.
+            </p>
+
+            <h6>Key Features</h6>
+            <ul>
+              <li>AI-powered weed detection</li>
+              <li>Autonomous operation</li>
+              <li>Data-driven decision making</li>
+              <li>Remote monitoring and control</li>
+            </ul>
+
+            <h6>Advantages Over Traditional Methods</h6>
+            <ul>
+              <li>Improves crop yield and quality</li>
+              <li>Reduces chemical usage</li>
+              <li>Cost-effective weed management</li>
+              <li>Precise nutrient management</li>
+            </ul>
+
+            <h6>How to Operate</h6>
+            <ol>
+              <li>Install the system in your field</li>
+              <li>Connect the system to your mobile device</li>
+              <li>Configure the weed detection settings</li>
+              <li>Monitor weed growth</li>
+            </ol>
+
+            <h6>Video Tutorial</h6>
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/example"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Modal 11 -->
+    <div class="modal fade" id="productModal11" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Smart Storage System</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <img
+              src="https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="img-fluid mb-4"
+              alt="Smart Storage System" />
+            <h6>Product Description</h6>
+            <p>
+              The Smart Storage System uses AI algorithms to manage the
+              temperature and humidity in a storage facility. It provides real-
+              time feedback and alerts to help farmers make informed decisions
+              about storage management.
+            </p>
+
+            <h6>Key Features</h6>
+            <ul>
+              <li>AI-powered climate control</li>
+              <li>Autonomous operation</li>
+              <li>Data-driven decision making</li>
+              <li>Remote monitoring and control</li>
+            </ul>
+
+            <h6>Advantages Over Traditional Methods</h6>
+            <ul>
+              <li>Improves crop yield and quality</li>
+              <li>Reduces labor costs</li>
+              <li>Cost-effective storage management</li>
+              <li>Precise nutrient management</li>
+            </ul>
+
+            <h6>How to Operate</h6>
+            <ol>
+              <li>Install the system in your storage facility</li>
+              <li>Connect the system to your mobile device</li>
+              <li>Configure the climate control settings</li>
+              <li>Monitor storage conditions</li>
+            </ol>
+
+            <h6>Video Tutorial</h6>
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/example"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Modal 12 -->
+    <div class="modal fade" id="productModal12" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Automated Milking System</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <img
+              src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="img-fluid mb-4"
+              alt="Automated Milking System" />
+            <h6>Product Description</h6>
+            <p>
+              The Automated Milking System uses AI algorithms to monitor and
+              manage the milking process in a dairy farm. It provides real-time
+              feedback and alerts to help farmers make informed decisions about
+              milking management.
+            </p>
+
+            <h6>Key Features</h6>
+            <ul>
+              <li>AI-powered milking monitoring</li>
+              <li>Autonomous operation</li>
+              <li>Data-driven decision making</li>
+              <li>Remote monitoring and control</li>
+            </ul>
+
+            <h6>Advantages Over Traditional Methods</h6>
+            <ul>
+              <li>Improves milk yield and quality</li>
+              <li>Reduces labor costs</li>
+              <li>Cost-effective milking management</li>
+              <li>Precise nutrient management</li>
+            </ul>
+
+            <h6>How to Operate</h6>
+            <ol>
+              <li>Install the system in your dairy farm</li>
+              <li>Connect the system to your mobile device</li>
+              <li>Configure the milking monitoring settings</li>
+              <li>Monitor the milking process</li>
+            </ol>
+
+            <h6>Video Tutorial</h6>
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/example"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Modal 13 -->
+    <div class="modal fade" id="productModal13" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Smart Feed Dispenser</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <img
+              src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="img-fluid mb-4"
+              alt="Smart Feed Dispenser" />
+            <h6>Product Description</h6>
+            <p>
+              The Smart Feed Dispenser uses AI algorithms to manage the feeding
+              process in livestock facilities. It provides real-time feedback
+              and alerts to help farmers make informed decisions about feeding
+              management.
+            </p>
+
+            <h6>Key Features</h6>
+            <ul>
+              <li>AI-powered feeding monitoring</li>
+              <li>Autonomous operation</li>
+              <li>Data-driven decision making</li>
+              <li>Remote monitoring and control</li>
+            </ul>
+
+            <h6>Advantages Over Traditional Methods</h6>
+            <ul>
+              <li>Improves livestock health and productivity</li>
+              <li>Reduces labor costs</li>
+              <li>Cost-effective feeding management</li>
+              <li>Precise nutrient management</li>
+            </ul>
+
+            <h6>How to Operate</h6>
+            <ol>
+              <li>Install the system in your livestock facility</li>
+              <li>Connect the system to your mobile device</li>
+              <li>Configure the feeding monitoring settings</li>
+              <li>Monitor the feeding process</li>
+            </ol>
+
+            <h6>Video Tutorial</h6>
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/example"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Modal 14 -->
+    <div class="modal fade" id="productModal14" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Automated Egg Collector</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <img
+              src="https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="img-fluid mb-4"
+              alt="Automated Egg Collector" />
+            <h6>Product Description</h6>
+            <p>
+              The Automated Egg Collector uses AI algorithms to collect and sort
+              eggs from a poultry farm. It provides real-time feedback and
+              alerts to help farmers make informed decisions about egg
+              collection management.
+            </p>
+
+            <h6>Key Features</h6>
+            <ul>
+              <li>AI-powered egg collection</li>
+              <li>Autonomous operation</li>
+              <li>Data-driven decision making</li>
+              <li>Remote monitoring and control</li>
+            </ul>
+
+            <h6>Advantages Over Traditional Methods</h6>
+            <ul>
+              <li>Improves egg collection efficiency</li>
+              <li>Reduces labor costs</li>
+              <li>Cost-effective egg collection management</li>
+              <li>Precise nutrient management</li>
+            </ul>
+
+            <h6>How to Operate</h6>
+            <ol>
+              <li>Install the system in your poultry farm</li>
+              <li>Connect the system to your mobile device</li>
+              <li>Configure the egg collection settings</li>
+              <li>Monitor the egg collection process</li>
+            </ol>
+
+            <h6>Video Tutorial</h6>
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/example"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Modal 15 -->
+    <div class="modal fade" id="productModal15" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Smart Compost System</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <img
+              src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="img-fluid mb-4"
+              alt="Smart Compost System" />
+            <h6>Product Description</h6>
+            <p>
+              The Smart Compost System uses AI algorithms to manage the
+              composting process in a farm. It provides real-time feedback and
+              alerts to help farmers make informed decisions about composting
+              management.
+            </p>
+
+            <h6>Key Features</h6>
+            <ul>
+              <li>AI-powered composting monitoring</li>
+              <li>Autonomous operation</li>
+              <li>Data-driven decision making</li>
+              <li>Remote monitoring and control</li>
+            </ul>
+
+            <h6>Advantages Over Traditional Methods</h6>
+            <ul>
+              <li>Improves compost quality and yield</li>
+              <li>Reduces labor costs</li>
+              <li>Cost-effective composting management</li>
+              <li>Precise nutrient management</li>
+            </ul>
+
+            <h6>How to Operate</h6>
+            <ol>
+              <li>Install the system in your farm</li>
+              <li>Connect the system to your mobile device</li>
+              <li>Configure the composting monitoring settings</li>
+              <li>Monitor the composting process</li>
+            </ol>
+
+            <h6>Video Tutorial</h6>
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/example"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Modal 16 -->
+    <div class="modal fade" id="productModal16" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Automated Pruning System</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <img
+              src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="img-fluid mb-4"
+              alt="Automated Pruning System" />
+            <h6>Product Description</h6>
+            <p>
+              The Automated Pruning System uses AI algorithms to manage the
+              pruning process in a farm. It provides real-time feedback and
+              alerts to help farmers make informed decisions about pruning
+              management.
+            </p>
+
+            <h6>Key Features</h6>
+            <ul>
+              <li>AI-powered pruning monitoring</li>
+              <li>Autonomous operation</li>
+              <li>Data-driven decision making</li>
+              <li>Remote monitoring and control</li>
+            </ul>
+
+            <h6>Advantages Over Traditional Methods</h6>
+            <ul>
+              <li>Improves crop yield and quality</li>
+              <li>Reduces labor costs</li>
+              <li>Cost-effective pruning management</li>
+              <li>Precise nutrient management</li>
+            </ul>
+
+            <h6>How to Operate</h6>
+            <ol>
+              <li>Install the system in your farm</li>
+              <li>Connect the system to your mobile device</li>
+              <li>Configure the pruning monitoring settings</li>
+              <li>Monitor the pruning process</li>
+            </ol>
+
+            <h6>Video Tutorial</h6>
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/example"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Modal 17 -->
+    <div class="modal fade" id="productModal17" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Smart Irrigation Controller</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <img
+              src="https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="img-fluid mb-4"
+              alt="Smart Irrigation Controller" />
+            <h6>Product Description</h6>
+            <p>
+              The Smart Irrigation Controller uses AI algorithms to manage the
+              irrigation process in a farm. It provides real-time feedback and
+              alerts to help farmers make informed decisions about irrigation
+              management.
+            </p>
+
+            <h6>Key Features</h6>
+            <ul>
+              <li>AI-powered irrigation monitoring</li>
+              <li>Autonomous operation</li>
+              <li>Data-driven decision making</li>
+              <li>Remote monitoring and control</li>
+            </ul>
+
+            <h6>Advantages Over Traditional Methods</h6>
+            <ul>
+              <li>Improves crop yield and quality</li>
+              <li>Reduces labor costs</li>
+              <li>Cost-effective irrigation management</li>
+              <li>Precise nutrient management</li>
+            </ul>
+
+            <h6>How to Operate</h6>
+            <ol>
+              <li>Install the system in your farm</li>
+              <li>Connect the system to your mobile device</li>
+              <li>Configure the irrigation monitoring settings</li>
+              <li>Monitor the irrigation process</li>
+            </ol>
+
+            <h6>Video Tutorial</h6>
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/example"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Modal 18 -->
+    <div class="modal fade" id="productModal18" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Automated Pollination System</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <img
+              src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="img-fluid mb-4"
+              alt="Automated Pollination System" />
+            <h6>Product Description</h6>
+            <p>
+              The Automated Pollination System uses AI algorithms to manage the
+              pollination process in a farm. It provides real-time feedback and
+              alerts to help farmers make informed decisions about pollination
+              management.
+            </p>
+
+            <h6>Key Features</h6>
+            <ul>
+              <li>AI-powered pollination monitoring</li>
+              <li>Autonomous operation</li>
+              <li>Data-driven decision making</li>
+              <li>Remote monitoring and control</li>
+            </ul>
+
+            <h6>Advantages Over Traditional Methods</h6>
+            <ul>
+              <li>Improves crop yield and quality</li>
+              <li>Reduces labor costs</li>
+              <li>Cost-effective pollination management</li>
+              <li>Precise nutrient management</li>
+            </ul>
+
+            <h6>How to Operate</h6>
+            <ol>
+              <li>Install the system in your farm</li>
+              <li>Connect the system to your mobile device</li>
+              <li>Configure the pollination monitoring settings</li>
+              <li>Monitor the pollination process</li>
+            </ol>
+
+            <h6>Video Tutorial</h6>
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/example"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Modal 19 -->
+    <div class="modal fade" id="productModal19" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Smart Pest Trap</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <img
+              src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="img-fluid mb-4"
+              alt="Smart Pest Trap" />
+            <h6>Product Description</h6>
+            <p>
+              The Smart Pest Trap uses AI algorithms to detect and trap pests in
+              a farm. It provides real-time feedback and alerts to help farmers
+              make informed decisions about pest management.
+            </p>
+
+            <h6>Key Features</h6>
+            <ul>
+              <li>AI-powered pest detection</li>
+              <li>Autonomous operation</li>
+              <li>Data-driven decision making</li>
+              <li>Remote monitoring and control</li>
+            </ul>
+
+            <h6>Advantages Over Traditional Methods</h6>
+            <ul>
+              <li>Improves crop yield and quality</li>
+              <li>Reduces labor costs</li>
+              <li>Cost-effective pest management</li>
+              <li>Precise nutrient management</li>
+            </ul>
+
+            <h6>How to Operate</h6>
+            <ol>
+              <li>Install the system in your farm</li>
+              <li>Connect the system to your mobile device</li>
+              <li>Configure the pest detection settings</li>
+              <li>Monitor the pest detection process</li>
+            </ol>
+
+            <h6>Video Tutorial</h6>
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/example"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Modal 20 -->
+    <div class="modal fade" id="productModal20" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Automated Sorting System</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <img
+              src="https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              class="img-fluid mb-4"
+              alt="Automated Sorting System" />
+            <h6>Product Description</h6>
+            <p>
+              The Automated Sorting System uses AI algorithms to sort and grade
+              produce in a farm. It provides real-time feedback and alerts to
+              help farmers make informed decisions about sorting management.
+            </p>
+
+            <h6>Key Features</h6>
+            <ul>
+              <li>AI-powered sorting monitoring</li>
+              <li>Autonomous operation</li>
+              <li>Data-driven decision making</li>
+              <li>Remote monitoring and control</li>
+            </ul>
+
+            <h6>Advantages Over Traditional Methods</h6>
+            <ul>
+              <li>Improves produce yield and quality</li>
+              <li>Reduces labor costs</li>
+              <li>Cost-effective sorting management</li>
+              <li>Precise nutrient management</li>
+            </ul>
+
+            <h6>How to Operate</h6>
+            <ol>
+              <li>Install the system in your farm</li>
+              <li>Connect the system to your mobile device</li>
+              <li>Configure the sorting monitoring settings</li>
+              <li>Monitor the sorting process</li>
+            </ol>
+
+            <h6>Video Tutorial</h6>
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/example"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Search functionality
+      document
+        .getElementById("searchInput")
+        .addEventListener("input", function (e) {
+          const searchTerm = e.target.value.toLowerCase();
+          const products = document.querySelectorAll(".product-card");
+
+          products.forEach((product) => {
+            const title = product.querySelector("h5").textContent.toLowerCase();
+            const description = product
+              .querySelector("p")
+              .textContent.toLowerCase();
+
+            if (
+              title.includes(searchTerm) ||
+              description.includes(searchTerm)
+            ) {
+              product.closest(".col-md-4").style.display = "";
+            } else {
+              product.closest(".col-md-4").style.display = "none";
+            }
+          });
+        });
+
+      // Category button functionality
+      document.querySelectorAll(".category-btn").forEach((button) => {
+        button.addEventListener("click", function () {
+          // Remove active class from all buttons
+          document
+            .querySelectorAll(".category-btn")
+            .forEach((btn) => btn.classList.remove("active"));
+          // Add active class to clicked button
+          this.classList.add("active");
+
+          const category = this.textContent.trim();
+          const products = document.querySelectorAll(".product-card");
+
+          products.forEach((product) => {
+            const title = product.querySelector("h5").textContent.toLowerCase();
+            if (category === "All" || title.includes(category.toLowerCase())) {
+              product.closest(".col-md-4").style.display = "";
+            } else {
+              product.closest(".col-md-4").style.display = "none";
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Authentication</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .container {
+        width: 100%;
+        max-width: 400px;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+      h2 {
+        margin-bottom: 20px;
+        color: #4caf50;
+      }
+      input,
+      select {
+        width: calc(100% - 24px);
+        padding: 12px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 16px;
+        display: block;
+        text-align: left;
+      }
+      .toggle-btn {
+        width: 100%;
+        background: #4caf50;
+        color: white;
+        padding: 12px;
+        border: none;
+        cursor: pointer;
+        border-radius: 6px;
+        font-size: 16px;
+        margin-top: 10px;
+      }
+      .toggle-btn:hover {
+        background: #388e3c;
+      }
+      .link {
+        color: #4caf50;
+        cursor: pointer;
+        margin-top: 12px;
+        display: block;
+      }
+      .password-container {
+        position: relative;
+      }
+      .password-container input {
+        width: 90%;
+        padding-right: 40px;
+      }
+      .toggle-password {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: gray;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2 id="form-title">Sign Up</h2>
+
+      <!-- Sign Up Section -->
+      <div id="signup-section">
+        <input type="text" id="signup-name" placeholder="Full Name" required />
+        <input type="email" id="signup-email" placeholder="Email" required />
+        <input
+          type="text"
+          id="signup-mobile"
+          placeholder="Mobile Number"
+          required
+          maxlength="10" />
+        <input
+          type="text"
+          id="signup-aadhar"
+          placeholder="Aadhar Number (12 digits)"
+          required
+          maxlength="12" />
+        <input
+          type="text"
+          id="signup-address"
+          placeholder="Street Address"
+          required />
+        <input type="text" id="signup-city" placeholder="City" required />
+        <select id="signup-state" required>
+          <option value="" disabled selected>Select State</option>
+          <option value="Maharashtra">Maharashtra</option>
+          <option value="Gujarat">Gujarat</option>
+          <option value="Uttar Pradesh">Uttar Pradesh</option>
+          <option value="Tamil Nadu">Tamil Nadu</option>
+        </select>
+        <input
+          type="text"
+          id="signup-pincode"
+          placeholder="Pincode"
+          required
+          maxlength="6" />
+
+        <div class="password-container">
+          <input
+            type="password"
+            id="signup-password"
+            placeholder="Password"
+            required />
+          <span class="toggle-password" onclick="togglePassword()">👁️</span>
+        </div>
+
+        <button class="toggle-btn" onclick="sendOTP('signup')">Send OTP</button>
+      </div>
+
+      <p class="link" onclick="toggleForm()">Already have an account? Login</p>
+    </div>
+
+    <script>
+      function togglePassword() {
+        let passwordField = document.getElementById("signup-password");
+        passwordField.type =
+          passwordField.type === "password" ? "text" : "password";
+      }
+
+      function toggleForm() {
+        alert("Toggling to Login form (Implementation needed)");
+      }
+
+      function sendOTP(mode) {
+        alert("OTP Sent! (Simulated)");
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,501 @@
+:root {
+  --primary-color: #2e7d32;
+  --secondary-color: #4caf50;
+  --accent-color: #8bc34a;
+  --light-green: #e8f5e9;
+  --text-dark: #333333;
+  --text-light: #ffffff;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+/* Navigation */
+.navbar {
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 15px 0;
+}
+
+.navbar .logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.navbar .logo i {
+  color: var(--primary-color);
+  margin-right: 5px;
+}
+
+.navbar .nav-link {
+  font-weight: 500;
+  color: var(--text-dark);
+  margin: 0 5px;
+  transition: color 0.3s;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+  color: var(--primary-color);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+.btn-outline-primary {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* Hero Section */
+#hero {
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.9),
+      rgba(255, 255, 255, 0.7)
+    ),
+    url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80");
+  background-size: cover;
+  background-position: center;
+  padding: 100px 0;
+  margin-bottom: 50px;
+}
+
+#hero h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+#hero .highlight {
+  color: var(--primary-color);
+}
+
+#hero .lead {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+/* Section Styling */
+section {
+  padding: 60px 0;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.section-header h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.section-header p {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.highlight {
+  color: var(--primary-color);
+}
+
+/* Feature Cards */
+.feature-card {
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: 30px;
+  text-align: center;
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-card .icon {
+  background-color: var(--light-green);
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 20px;
+}
+
+.feature-card .icon i {
+  font-size: 28px;
+  color: var(--primary-color);
+}
+
+.feature-card h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+/* Price Form */
+.price-form-container {
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
+#priceForm label {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+#priceForm .form-control,
+#priceForm .form-select {
+  padding: 12px;
+  border-radius: var(--border-radius);
+  border: 1px solid #ddd;
+}
+
+#priceForm .form-control:focus,
+#priceForm .form-select:focus {
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 0.25rem rgba(76, 175, 80, 0.25);
+}
+
+/* Price Results */
+.price-card {
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
+}
+
+.price-header {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.price-header h3 {
+  margin-bottom: 5px;
+}
+
+.price-body {
+  padding: 20px;
+}
+
+.price-box {
+  text-align: center;
+  padding: 20px 15px;
+  border-radius: var(--border-radius);
+  height: 100%;
+}
+
+.price-box h5 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.price-box h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.min-price {
+  background-color: #e8f5e9;
+}
+
+.modal-price {
+  background-color: #4caf5022;
+  border: 2px solid var(--secondary-color);
+}
+
+.max-price {
+  background-color: #8bc34a22;
+}
+
+/* Trend Card */
+.trend-card {
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
+}
+
+.trend-header {
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.trend-header h3 {
+  margin-bottom: 5px;
+}
+
+.trend-body {
+  padding: 20px;
+}
+/* Nearby Markets Card */
+.nearby-markets-card {
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
+}
+.nearby-header {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+.nearby-header h3 {
+  margin-bottom: 5px;
+}
+.nearby-body {
+  padding: 20px;
+}
+.nearby-body table {
+  margin-bottom: 0;
+}
+.nearby-body th {
+  background-color: var(--light-green);
+  color: var(--primary-color);
+  font-weight: 600;
+}
+.nearby-body .price-difference-positive {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+.nearby-body .price-difference-negative {
+  color: #d32f2f;
+  font-weight: 600;
+}
+/* Common Crops */
+.crop-card {
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  text-align: center;
+  padding: 25px 15px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s;
+  height: 100%;
+}
+
+.crop-card:hover {
+  transform: translateY(-5px);
+  background-color: var(--light-green);
+}
+
+.crop-card .icon {
+  width: 60px;
+  height: 60px;
+  background-color: var(--light-green);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 15px;
+  transition: background-color 0.3s;
+}
+
+.crop-card:hover .icon {
+  background-color: white;
+}
+
+.crop-card .icon i {
+  font-size: 28px;
+  color: var(--primary-color);
+}
+
+.crop-card h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+/* Footer */
+footer {
+  background-color: #333;
+  color: white;
+  padding: 60px 0 20px;
+}
+
+footer .logo {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+footer h5 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+footer ul li {
+  margin-bottom: 10px;
+}
+
+footer ul li a {
+  color: #ddd;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+footer ul li a:hover {
+  color: var(--accent-color);
+}
+
+footer .social-links {
+  margin-top: 20px;
+}
+
+footer .social-links a {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  text-align: center;
+  line-height: 36px;
+  color: white;
+  margin-right: 10px;
+  transition: all 0.3s ease;
+}
+
+footer .social-links a:hover {
+  background-color: var(--primary-color);
+  transform: translateY(-3px);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 30px;
+  margin-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Loading Animation */
+#loading .spinner-border {
+  width: 3rem;
+  height: 3rem;
+  color: var(--primary-color);
+}
+
+/* Alert Styling */
+.alert-info {
+  background-color: var(--light-green);
+  border-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  #hero {
+    padding: 60px 0;
+  }
+
+  #hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .section-header h2 {
+    font-size: 1.8rem;
+  }
+
+  .price-box h2 {
+    font-size: 1.8rem;
+  }
+
+  footer {
+    text-align: center;
+  }
+
+  footer .logo,
+  footer h5 {
+    margin-top: 20px;
+  }
+}
+
+/* Crop Recommendation Styles */
+#resultCard {
+  transition: opacity 0.3s ease-in-out;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#resultCard .card-body {
+  padding: 2rem;
+}
+
+#cropImage {
+  max-height: 200px;
+  width: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #f8f9fa;
+  padding: 1rem;
+}
+
+#cropName {
+  color: #198754;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+#benefits,
+#conditions,
+#season {
+  color: #495057;
+  line-height: 1.6;
+}
+
+#conditions li {
+  margin-bottom: 0.5rem;
+}
+
+.crop-info h5 {
+  color: #198754;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+/* Default crop image placeholder */
+.default-crop-placeholder {
+  background: #f8f9fa;
+  border: 2px dashed #dee2e6;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  width: 100%;
+  color: #6c757d;
+  font-size: 1.1rem;
+  text-align: center;
+  padding: 1rem;
+}

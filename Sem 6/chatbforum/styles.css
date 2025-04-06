@@ -1,0 +1,144 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Make everything full screen */
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #e5ddd5;
+}
+
+/* Main container */
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding-bottom: 60px; /* Prevent overlap */
+}
+
+/* Sidebar (Chat List) */
+.sidebar {
+  width: 100%;
+  background-color: #075e54;
+  padding: 10px;
+  text-align: center;
+  color: white;
+}
+
+/* Chat List */
+.chat-list {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.chat-item {
+  background-color: #25d366;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.chat-item:hover {
+  background-color: #1ebc5a;
+}
+
+/* Chat Window */
+.chat-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 10px;
+  overflow-y: auto;
+  background-color: #fff;
+}
+
+/* Messages */
+.message {
+  max-width: 70%;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 10px;
+  font-size: 14px;
+  word-wrap: break-word;
+}
+
+/* Sender Message */
+.sender {
+  background-color: #dcf8c6;
+  align-self: flex-end;
+}
+
+/* Receiver Message */
+.receiver {
+  background-color: #ffffff;
+  align-self: flex-start;
+  border: 1px solid #ddd;
+}
+
+/* Message Input Area - **FIXED AT BOTTOM** */
+.input-container {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  padding: 10px;
+  background-color: #f1f1f1;
+  border-top: 1px solid #ddd;
+}
+
+input {
+  flex: 1;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  background-color: #fff;
+}
+
+button {
+  padding: 12px;
+  margin-left: 10px;
+  background-color: #25d366;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #1ebc5a;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .chat-item {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .message {
+    max-width: 85%;
+    font-size: 13px;
+  }
+
+  input {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}

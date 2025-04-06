@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmBuddy - Crop Recommendation</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement(
+            { pageLanguage: 'en', includedLanguages: 'hi,pa,gu,mr,ta,te,kn,bn', layout: google.translate.TranslateElement.InlineLayout.SIMPLE },
+            'google_translate_element'
+          );
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <style>
+        .loader {
+            display: none;
+            border: 5px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 5px solid #3498db;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .result-card {
+            display: none;
+            transition: all 0.3s ease;
+        }
+        
+        .input-range {
+            margin-bottom: 15px;
+        }
+        
+        .input-range label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .input-range span {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        
+        .input-range .badge {
+            font-size: 1rem;
+            padding: 4px 8px;
+            background-color: #198754;
+            color: white;
+            min-width: 45px;
+            text-align: center;
+        }
+        
+        .crop-img {
+            max-height: 150px;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <div class="logo">
+                    <i class="fa-solid fa-leaf"></i> FarmBuddy
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/#price-checker">Price Tracker</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/crop-recommendation">Crop Recommendation</a>
+                    </li>
+                </ul>
+                <div id="google_translate_element" class="me-3"></div>
+                <a href="/login" class="btn btn-outline-primary">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12 text-center mb-4">
+                <h1>Crop Recommendation System</h1>
+                <p class="lead">Get personalized crop recommendations based on your soil and climate conditions</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="fa-solid fa-seedling me-2"></i>Soil & Climate Parameters</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="cropRecommendationForm">
+                            <div class="input-range">
+                                <label for="N">
+                                    Nitrogen (N) 
+                                    <span>0-140 kg/ha</span>
+                                </label>
+                                <div class="d-flex align-items-center">
+                                    <input type="range" class="form-range" id="N" name="N" min="0" max="140" value="50">
+                                    <span class="ms-2 badge bg-secondary" id="N-value">50</span>
+                                </div>
+                            </div>
+                            
+                            <div class="input-range">
+                                <label for="P">
+                                    Phosphorus (P)
+                                    <span>0-60 kg/ha</span>
+                                </label>
+                                <div class="d-flex align-items-center">
+                                    <input type="range" class="form-range" id="P" name="P" min="0" max="60" value="25">
+                                    <span class="ms-2 badge bg-secondary" id="P-value">25</span>
+                                </div>
+                            </div>
+                            
+                            <div class="input-range">
+                                <label for="K">
+                                    Potassium (K)
+                                    <span>0-50 kg/ha</span>
+                                </label>
+                                <div class="d-flex align-items-center">
+                                    <input type="range" class="form-range" id="K" name="K" min="0" max="50" value="30">
+                                    <span class="ms-2 badge bg-secondary" id="K-value">30</span>
+                                </div>
+                            </div>
+                            
+                            <div class="input-range">
+                                <label for="temperature">
+                                    Temperature (°C)
+                                    <span>10-35 °C</span>
+                                </label>
+                                <div class="d-flex align-items-center">
+                                    <input type="range" class="form-range" id="temperature" name="temperature" min="10" max="35" step="0.1" value="25">
+                                    <span class="ms-2 badge bg-secondary" id="temperature-value">25</span>
+                                </div>
+                            </div>
+                            
+                            <div class="input-range">
+                                <label for="humidity">
+                                    Humidity (%)
+                                    <span>20-100 %</span>
+                                </label>
+                                <div class="d-flex align-items-center">
+                                    <input type="range" class="form-range" id="humidity" name="humidity" min="20" max="100" value="65">
+                                    <span class="ms-2 badge bg-secondary" id="humidity-value">65</span>
+                                </div>
+                            </div>
+                            
+                            <div class="input-range">
+                                <label for="ph">
+                                    pH value
+                                    <span>5.0-9.0</span>
+                                </label>
+                                <div class="d-flex align-items-center">
+                                    <input type="range" class="form-range" id="ph" name="ph" min="5.0" max="9.0" step="0.1" value="6.5">
+                                    <span class="ms-2 badge bg-secondary" id="ph-value">6.5</span>
+                                </div>
+                            </div>
+                            
+                            <div class="input-range">
+                                <label for="rainfall">
+                                    Rainfall (mm)
+                                    <span>30-300 mm</span>
+                                </label>
+                                <div class="d-flex align-items-center">
+                                    <input type="range" class="form-range" id="rainfall" name="rainfall" min="30" max="300" value="150">
+                                    <span class="ms-2 badge bg-secondary" id="rainfall-value">150</span>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-success w-100">
+                                <i class="fa-solid fa-magnifying-glass me-2"></i>Get Recommendation
+                            </button>
+                        </form>
+                        
+                        <div class="loader mt-3" id="loader"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6">
+                <div class="card mb-4" id="resultCard" style="display: none; opacity: 0; transition: opacity 0.3s ease-in-out;">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 text-center">
+                                <img id="cropImage" src="/static/images/default-crop.jpg" alt="Recommended Crop" 
+                                     class="img-fluid rounded mb-3" style="max-height: 200px; width: auto;">
+                                <h3 id="cropName" class="mb-3"></h3>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="mb-4">
+                                    <h5>Benefits:</h5>
+                                    <p id="benefits"></p>
+                                </div>
+                                <div class="mb-4">
+                                    <h5>Growing Conditions:</h5>
+                                    <ul id="conditions"></ul>
+                                </div>
+                                <div>
+                                    <h5>Growing Season:</h5>
+                                    <p id="season"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card shadow-sm mt-4">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="fa-solid fa-circle-info me-2"></i>About Soil Parameters</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <strong>Nitrogen (N):</strong> Essential for leaf growth and green vegetation
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Phosphorus (P):</strong> Important for root development and flowering
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Potassium (K):</strong> Helps in overall plant health and disease resistance
+                            </li>
+                            <li class="list-group-item">
+                                <strong>pH:</strong> Determines nutrient availability to plants
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white mt-5 py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>FarmBuddy</h5>
+                    <p>Empowering farmers with technology and data-driven insights</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>&copy; 2025 FarmBuddy. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/crop_recommendation.js') }}"></script>
+</body>
+</html>

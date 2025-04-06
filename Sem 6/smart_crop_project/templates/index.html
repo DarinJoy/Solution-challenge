@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KrushiSetu - Price & Market Analysis</title>
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+          {
+            pageLanguage: "en",
+            includedLanguages: "hi,pa,gu,mr,ta,te,kn,bn",
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false,
+          },
+          "google_translate_element"
+        );
+      }
+    </script>
+    <script
+      type="text/javascript"
+      src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <style>
+      :root {
+        --primary-color: #2ecc71;
+        --primary-dark: #27ae60;
+        --secondary-color: #34495e;
+        --accent-color: #e74c3c;
+        --text-color: #2c3e50;
+        --light-bg: #f8f9fa;
+        --card-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s ease;
+      }
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        margin: 0;
+        padding: 0;
+        transition: var(--transition);
+        background-color: var(--light-bg);
+        color: var(--text-color);
+        line-height: 1.6;
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: white;
+        padding: 1rem 2rem;
+        color: var(--text-color);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .navbar-left {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+      }
+
+      #google_translate_element {
+        margin-right: 1rem;
+      }
+
+      .goog-te-gadget {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif !important;
+        font-size: 14px !important;
+        color: var(--text-color) !important;
+      }
+
+      .goog-te-gadget .goog-te-combo {
+        padding: 8px 12px !important;
+        border-radius: 6px !important;
+        border: 1px solid #ddd !important;
+        background-color: white !important;
+        color: var(--text-color) !important;
+        font-size: 14px !important;
+      }
+
+      .dark-mode .goog-te-gadget {
+        color: #fff !important;
+      }
+
+      .dark-mode .goog-te-gadget .goog-te-combo {
+        background-color: #2d2d2d !important;
+        border-color: #404040 !important;
+        color: #fff !important;
+      }
+
+      .goog-te-gadget .goog-te-menu-value {
+        color: var(--text-color) !important;
+        text-transform: none !important;
+      }
+
+      .dark-mode .goog-te-gadget .goog-te-menu-value {
+        color: #fff !important;
+      }
+
+      .navbar a {
+        color: var(--text-color);
+        text-decoration: none;
+        margin: 0 1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        transition: var(--transition);
+        font-weight: 500;
+        position: relative;
+      }
+
+      .navbar a::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 50%;
+        background-color: var(--primary-color);
+        transition: var(--transition);
+        transform: translateX(-50%);
+      }
+
+      .navbar a:hover::after {
+        width: 80%;
+      }
+
+      .navbar button {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: var(--transition);
+        box-shadow: 0 4px 6px rgba(46, 204, 113, 0.2);
+      }
+
+      .navbar button:hover {
+        background-color: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 8px rgba(46, 204, 113, 0.3);
+      }
+
+      .hero-section {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+          url("https://images.unsplash.com/photo-1592982537447-7440770cbfc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: white;
+        padding: 12rem 2rem;
+        text-align: center;
+        margin-bottom: 4rem;
+        position: relative;
+      }
+
+      .hero-section h1 {
+        font-size: 4rem;
+        margin-bottom: 2rem;
+        font-weight: 800;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .hero-section p {
+        font-size: 1.4rem;
+        max-width: 800px;
+        margin: 0 auto;
+        opacity: 0.95;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        line-height: 1.8;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+        margin: 4rem 0;
+      }
+
+      .feature {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 16px;
+        box-shadow: var(--card-shadow);
+        transition: var(--transition);
+        cursor: pointer;
+        text-align: left;
+        position: relative;
+        overflow: hidden;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .feature::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: var(--primary-color);
+        transform: scaleX(0);
+        transition: var(--transition);
+      }
+
+      .feature:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+      }
+
+      .feature:hover::before {
+        transform: scaleX(1);
+      }
+
+      .feature h3 {
+        margin-bottom: 1rem;
+        color: var(--secondary-color);
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+
+      .feature p {
+        color: #666;
+        margin-bottom: 1rem;
+      }
+
+      .feature-content {
+        margin-top: auto;
+        padding-top: 1rem;
+        border-top: 1px solid #eee;
+        color: #666;
+        font-size: 0.95rem;
+      }
+
+      .feature-link {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        height: 100%;
+      }
+
+      .footer {
+        background: var(--secondary-color);
+        color: white;
+        text-align: center;
+        padding: 2rem;
+        margin-top: 4rem;
+      }
+
+      .dark-mode {
+        background: #1a1a1a;
+        color: #fff;
+      }
+
+      .dark-mode .navbar {
+        background: #2d2d2d;
+      }
+
+      .dark-mode .navbar a {
+        color: #fff;
+      }
+
+      .dark-mode .feature {
+        background: #2d2d2d;
+      }
+
+      .dark-mode .feature h3 {
+        color: #fff;
+      }
+
+      .dark-mode .feature p {
+        color: #e0e0e0;
+      }
+
+      .dark-mode .feature-content {
+        border-top-color: #404040;
+        color: #e0e0e0;
+      }
+
+      .dark-mode .hero-section {
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+          url("https://images.unsplash.com/photo-1592982537447-7440770cbfc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+      }
+
+      .dark-mode .hero-section p {
+        color: #fff;
+      }
+
+      .dark-mode h2 {
+        color: #fff;
+      }
+
+      .contact-section {
+        background: white;
+        padding: 4rem 2rem;
+        margin-top: 4rem;
+        border-radius: 16px;
+        box-shadow: var(--card-shadow);
+      }
+
+      .contact-form {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: var(--secondary-color);
+        font-weight: 500;
+      }
+
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: var(--transition);
+        font-family: inherit;
+      }
+
+      .form-group textarea {
+        height: 150px;
+        resize: vertical;
+      }
+
+      .form-group input:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 2px rgba(46, 204, 113, 0.1);
+      }
+
+      .submit-btn {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: var(--transition);
+        box-shadow: 0 4px 6px rgba(46, 204, 113, 0.2);
+        width: 100%;
+        font-size: 1rem;
+      }
+
+      .submit-btn:hover {
+        background-color: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 8px rgba(46, 204, 113, 0.3);
+      }
+
+      .dark-mode .contact-section {
+        background: #2d2d2d;
+      }
+
+      .dark-mode .form-group input,
+      .dark-mode .form-group textarea {
+        background: #1a1a1a;
+        border-color: #404040;
+        color: #fff;
+      }
+
+      .dark-mode .form-group label {
+        color: #fff;
+      }
+
+      .dark-mode .form-group input:focus,
+      .dark-mode .form-group textarea:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 2px rgba(46, 204, 113, 0.2);
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .hero-section h1 {
+          font-size: 2.5rem;
+        }
+
+        .navbar {
+          flex-direction: column;
+          padding: 1rem;
+        }
+
+        .navbar div:last-child {
+          margin-top: 1rem;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 0.5rem;
+        }
+      }
+
+      .chat-button {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transition: var(--transition);
+        z-index: 1000;
+        border: none;
+      }
+
+      .chat-button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .chat-button i {
+        font-size: 24px;
+      }
+
+      .chat-popup {
+        position: fixed;
+        bottom: 100px;
+        right: 2rem;
+        width: 350px;
+        height: 500px;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+        display: none;
+        flex-direction: column;
+        z-index: 1000;
+        overflow: hidden;
+      }
+
+      .chat-popup.active {
+        display: flex;
+      }
+
+      .chat-header {
+        background: var(--primary-color);
+        color: white;
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .chat-header h3 {
+        margin: 0;
+        font-size: 1.2rem;
+      }
+
+      .chat-close {
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        font-size: 1.5rem;
+        padding: 0.5rem;
+      }
+
+      .chat-messages {
+        flex: 1;
+        padding: 1rem;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .message {
+        max-width: 80%;
+        padding: 0.8rem 1rem;
+        border-radius: 12px;
+        margin-bottom: 0.5rem;
+      }
+
+      .message.bot {
+        background: #f0f0f0;
+        align-self: flex-start;
+        border-bottom-left-radius: 4px;
+      }
+
+      .message.user {
+        background: var(--primary-color);
+        color: white;
+        align-self: flex-end;
+        border-bottom-right-radius: 4px;
+      }
+
+      .chat-input {
+        padding: 1rem;
+        border-top: 1px solid #eee;
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .chat-input input {
+        flex: 1;
+        padding: 0.8rem;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+      }
+
+      .chat-input button {
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 0.8rem 1.2rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .chat-input button:hover {
+        background: var(--primary-dark);
+      }
+
+      .dark-mode .chat-popup {
+        background: #2d2d2d;
+      }
+
+      .dark-mode .message.bot {
+        background: #404040;
+        color: #fff;
+      }
+
+      .dark-mode .chat-input {
+        border-top-color: #404040;
+      }
+
+      .dark-mode .chat-input input {
+        background: #1a1a1a;
+        border-color: #404040;
+        color: #fff;
+      }
+    </style>
+    <!-- Add Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="navbar-left">
+        <strong style="font-size: 1.5rem; color: var(--primary-color)"
+          >KrushiSetu</strong
+        >
+        <div id="google_translate_element" style="display: inline-block"></div>
+      </div>
+      <div>
+        <a href="http://127.0.0.1:5005/login">Login</a>
+        <button onclick="toggleDarkMode()">Dark Mode</button>
+      </div>
+    </div>
+
+    <div class="hero-section">
+      <h1>Welcome to KrushiSetu</h1>
+      <p>
+        Empowering farmers with real-time insights, smart tools, and data-driven
+        decisions for better yields and profits.
+      </p>
+    </div>
+
+    <div class="container">
+      <h2
+        style="
+          text-align: center;
+          color: var(--secondary-color);
+          margin-bottom: 3rem;
+          font-size: 2.5rem;
+        ">
+        Our Key Features
+      </h2>
+      <div class="features">
+        <a href="http://127.0.0.1:5005/" class="feature-link">
+          <div class="feature">
+            <h3>📈 Live Price Updates</h3>
+            <p>
+              Get real-time crop prices and make informed selling decisions.
+            </p>
+            <div class="feature-content">
+              <p>
+                We fetch data from reliable sources like Agmarknet and eNAM to
+                provide live crop pricing, ensuring farmers get the best value
+                for their produce.
+              </p>
+            </div>
+          </div>
+        </a>
+        <a href="rental.html" class="feature-link">
+          <div class="feature">
+            <h3>🔧 Equipment Rental</h3>
+            <p>Find and rent agricultural tools from nearby farmers.</p>
+            <div class="feature-content">
+              <p>
+                Connect with local farmers and rent or lease farming equipment,
+                reducing costs and increasing efficiency in your farming
+                operations.
+              </p>
+            </div>
+          </div>
+        </a>
+        <a
+          href="http://127.0.0.1:5005/crop-recommendation"
+          class="feature-link">
+          <div class="feature">
+            <h3>🌿 Smart Crop Suggestions</h3>
+            <p>AI-driven recommendations for the best crops to grow.</p>
+            <div class="feature-content">
+              <p>
+                Based on soil quality, climate, and market demand, our AI model
+                suggests the most profitable crops for your region, helping you
+                maximize your returns.
+              </p>
+            </div>
+          </div>
+        </a>
+        <a href="http://localhost:8501/" class="feature-link">
+          <div class="feature">
+            <h3>🌿 Fertilizer Suggestions</h3>
+            <p>
+              AI-driven recommendations for the best fertilizer to grow crops.
+            </p>
+            <div class="feature-content">
+              <p>
+                Based on soil quality and crop type, our AI model suggests the
+                best fertilizer for your crops, helping you maximize your
+                returns.
+              </p>
+            </div>
+          </div>
+        </a>
+        <a href="/weather/index.html" class="feature-link">
+          <div class="feature">
+            <h3>🌤️ Weather Insights</h3>
+            <p>Real-time weather updates and forecasts for your area.</p>
+            <div class="feature-content">
+              <p>
+                Get accurate weather predictions, rainfall forecasts, and
+                temperature trends to plan your farming activities effectively.
+              </p>
+            </div>
+          </div>
+        </a>
+        <a href="http://127.0.0.1:5003/" class="feature-link">
+          <div class="feature">
+            <h3>🏛️ Government Schemes</h3>
+            <p>Stay updated with latest agricultural schemes and subsidies.</p>
+            <div class="feature-content">
+              <p>
+                Access information about government initiatives, subsidies, and
+                support programs designed to help farmers grow and prosper.
+              </p>
+            </div>
+          </div>
+        </a>
+        <a href="/tools/index.html" class="feature-link">
+          <div class="feature">
+            <h3>🛠️ Advanced Tools</h3>
+            <p>Access specialized farming tools and calculators.</p>
+            <div class="feature-content">
+              <p>
+                Use our advanced farming tools for crop planning, yield
+                estimation, and financial calculations to optimize your farming
+                operations.
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div
+      class="container"
+      style="display: flex; justify-content: center; align-items: center">
+      <iframe
+        src="https://docs.google.com/forms/d/e/1FAIpQLSe_kzsT5jlabwzAUXWUBcV9Hy8krxMkRpmgjtBkfc2-SWIVJQ/viewform?embedded=true"
+        width="640"
+        height="853"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+        >Loading…</iframe
+      >
+    </div>
+
+    <button class="chat-button" onclick="toggleChat()">
+      <i class="fas fa-comments"></i>
+    </button>
+
+    <div class="chat-popup" id="chatPopup">
+      <div class="chat-header">
+        <h3>Chat with KrushiBot</h3>
+        <button class="chat-close" onclick="toggleChat()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="message bot">
+          Hello! I'm KrushiBot. How can I help you today?
+        </div>
+      </div>
+      <div class="chat-input">
+        <input
+          type="text"
+          id="userInput"
+          placeholder="Type your message..."
+          onkeypress="handleKeyPress(event)" />
+        <button onclick="sendMessage()">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>&copy; 2025 KrushiSetu. All rights reserved.</p>
+    </div>
+
+    <script>
+      function toggleDarkMode() {
+        document.body.classList.toggle("dark-mode");
+      }
+
+      function toggleChat() {
+        const chatPopup = document.getElementById("chatPopup");
+        chatPopup.classList.toggle("active");
+        if (chatPopup.classList.contains("active")) {
+          document.getElementById("userInput").focus();
+        }
+      }
+
+      function handleKeyPress(event) {
+        if (event.key === "Enter") {
+          sendMessage();
+        }
+      }
+
+      function sendMessage() {
+        const userInput = document.getElementById("userInput");
+        const message = userInput.value.trim();
+
+        if (message) {
+          // Add user message
+          addMessage(message, "user");
+
+          // Clear input
+          userInput.value = "";
+
+          // Show typing indicator
+          const typingIndicator = addMessage("KrushiBot is typing...", "bot");
+
+          // Make API call to the server
+          fetch("http://localhost:3001/chat", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ message: message }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              // Remove typing indicator
+              typingIndicator.remove();
+
+              // Add bot response
+              addMessage(data.reply, "bot");
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              // Remove typing indicator
+              typingIndicator.remove();
+              // Show error message
+              addMessage(
+                "Sorry, I'm having trouble connecting to the server. Please try again later.",
+                "bot"
+              );
+            });
+        }
+      }
+
+      function addMessage(text, sender) {
+        const chatMessages = document.getElementById("chatMessages");
+        const messageDiv = document.createElement("div");
+        messageDiv.className = `message ${sender}`;
+        messageDiv.textContent = text;
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        return messageDiv;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KrushiSetu - Login</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}" />
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+          {
+            pageLanguage: "en",
+            includedLanguages: "hi,pa,gu,mr,ta,te,kn,bn",
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+          },
+          "google_translate_element"
+        );
+      }
+    </script>
+    <script
+      type="text/javascript"
+      src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <style>
+      .login-container {
+        margin-top: 5%;
+        margin-bottom: 5%;
+      }
+
+      .login-form {
+        padding: 2rem;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .login-image {
+        height: 400px;
+        background-color: #f8f9fa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px 0 0 10px;
+      }
+
+      .login-image img {
+        max-height: 80%;
+        max-width: 80%;
+      }
+
+      .otp-inputs {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .otp-inputs input {
+        width: 40px;
+        height: 50px;
+        text-align: center;
+        font-size: 1.5rem;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+      }
+
+      .timer {
+        color: #dc3545;
+        font-weight: bold;
+      }
+
+      #otpForm {
+        display: none;
+      }
+
+      .farmer-logo {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .farmer-logo i {
+        font-size: 3rem;
+        color: #4caf50;
+      }
+
+      .subtitle {
+        margin-bottom: 2rem;
+        text-align: center;
+        color: #6c757d;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <div class="logo"><i class="fa-solid fa-leaf"></i> KrushiSetu</div>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+          <div id="google_translate_element" class="me-3"></div>
+          <a href="/login" class="btn btn-outline-primary active">Login</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container login-container">
+      <div class="row">
+        <div class="col-md-6 login-image d-none d-md-flex">
+          <img
+            src="{{ url_for('static', filename='images/farmer-login.svg') }}"
+            alt="Farmer Login" />
+        </div>
+
+        <div class="col-md-6">
+          <div class="login-form">
+            <div class="farmer-logo d-md-none">
+              <img
+                src="{{ url_for('static', filename='images/farmer-login.svg') }}"
+                alt="Farmer Login"
+                style="width: 150px" />
+            </div>
+            <h2 class="text-center">Farmer Login</h2>
+            <p class="subtitle">
+              Access price insights, crop recommendations and more
+            </p>
+
+            <!-- Login Method Toggle -->
+            <div class="btn-group w-100 mb-4" role="group">
+              <input
+                type="radio"
+                class="btn-check"
+                name="loginMethod"
+                id="phoneLogin"
+                checked />
+              <label class="btn btn-outline-success" for="phoneLogin"
+                >Phone</label
+              >
+
+              <input
+                type="radio"
+                class="btn-check"
+                name="loginMethod"
+                id="emailLogin" />
+              <label class="btn btn-outline-success" for="emailLogin"
+                >Email</label
+              >
+            </div>
+
+            <!-- Phone Number Form -->
+            <form id="phoneForm">
+              <div class="mb-3">
+                <label for="phoneNumber" class="form-label">Phone Number</label>
+                <div class="input-group">
+                  <span class="input-group-text">+91</span>
+                  <input
+                    type="tel"
+                    class="form-control"
+                    id="phoneNumber"
+                    placeholder="Enter your 10-digit phone number"
+                    maxlength="10"
+                    pattern="[0-9]{10}"
+                    required />
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-success w-100">
+                Get OTP
+              </button>
+            </form>
+
+            <!-- Email Form -->
+            <form id="emailForm" style="display: none">
+              <div class="mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  placeholder="Enter your email address"
+                  required />
+              </div>
+
+              <button type="submit" class="btn btn-success w-100">
+                Get OTP
+              </button>
+            </form>
+
+            <!-- OTP Verification Form -->
+            <form id="otpForm" style="display: none">
+              <div class="mb-3">
+                <label class="form-label"
+                  >Enter OTP sent to <span id="displayContact"></span
+                ></label>
+                <div class="otp-inputs">
+                  <input
+                    type="text"
+                    maxlength="1"
+                    class="otp-input"
+                    id="otp1"
+                    required />
+                  <input
+                    type="text"
+                    maxlength="1"
+                    class="otp-input"
+                    id="otp2"
+                    required />
+                  <input
+                    type="text"
+                    maxlength="1"
+                    class="otp-input"
+                    id="otp3"
+                    required />
+                  <input
+                    type="text"
+                    maxlength="1"
+                    class="otp-input"
+                    id="otp4"
+                    required />
+                  <input
+                    type="text"
+                    maxlength="1"
+                    class="otp-input"
+                    id="otp5"
+                    required />
+                  <input
+                    type="text"
+                    maxlength="1"
+                    class="otp-input"
+                    id="otp6"
+                    required />
+                </div>
+              </div>
+              <div class="d-flex justify-content-between mb-3">
+                <span
+                  >Resend OTP in
+                  <span id="timer" class="timer">01:00</span></span
+                >
+                <a href="#" class="text-decoration-none disabled" id="resendBtn"
+                  >Resend OTP</a
+                >
+              </div>
+              <button type="submit" class="btn btn-success w-100">
+                Verify & Login
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-secondary w-100 mt-2"
+                id="backBtn">
+                Back
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const phoneForm = document.getElementById("phoneForm");
+        const emailForm = document.getElementById("emailForm");
+        const otpForm = document.getElementById("otpForm");
+        const displayContact = document.getElementById("displayContact");
+        const timerElement = document.getElementById("timer");
+        const resendBtn = document.getElementById("resendBtn");
+        const backBtn = document.getElementById("backBtn");
+        const registerLink = document.getElementById("registerLink");
+        const otpInputs = document.querySelectorAll(".otp-input");
+        const phoneLogin = document.getElementById("phoneLogin");
+        const emailLogin = document.getElementById("emailLogin");
+        let timerInterval;
+        let timeLeft = 60;
+        let currentLoginMethod = "phone";
+
+        // Login method toggle
+        phoneLogin.addEventListener("change", function () {
+          if (this.checked) {
+            phoneForm.style.display = "block";
+            emailForm.style.display = "none";
+            currentLoginMethod = "phone";
+          }
+        });
+
+        emailLogin.addEventListener("change", function () {
+          if (this.checked) {
+            phoneForm.style.display = "none";
+            emailForm.style.display = "block";
+            currentLoginMethod = "email";
+          }
+        });
+
+        // Phone number form submission
+        phoneForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const phoneNumber = document.getElementById("phoneNumber").value;
+
+          // Validate phone number
+          if (phoneNumber.length !== 10 || isNaN(phoneNumber)) {
+            alert("Please enter a valid 10-digit phone number");
+            return;
+          }
+
+          // Show OTP form and hide phone form
+          phoneForm.style.display = "none";
+          otpForm.style.display = "block";
+          displayContact.textContent = phoneNumber;
+
+          // Start timer
+          startTimer();
+
+          // Send OTP via phone
+          sendOTP("phone", phoneNumber);
+        });
+
+        // Email form submission
+        emailForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const email = document.getElementById("email").value;
+
+          // Validate email
+          if (!validateEmail(email)) {
+            alert("Please enter a valid email address");
+            return;
+          }
+
+          // Show OTP form and hide email form
+          emailForm.style.display = "none";
+          otpForm.style.display = "block";
+          displayContact.textContent = email;
+
+          // Start timer
+          startTimer();
+
+          // Send OTP via email
+          sendOTP("email", email);
+        });
+
+        // Timer functionality
+        function startTimer() {
+          timeLeft = 60;
+          resendBtn.classList.add("disabled");
+          updateTimer();
+
+          timerInterval = setInterval(() => {
+            timeLeft--;
+            updateTimer();
+
+            if (timeLeft <= 0) {
+              clearInterval(timerInterval);
+              resendBtn.classList.remove("disabled");
+            }
+          }, 1000);
+        }
+
+        function updateTimer() {
+          const minutes = Math.floor(timeLeft / 60);
+          const seconds = timeLeft % 60;
+          timerElement.textContent = `${minutes
+            .toString()
+            .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+        }
+
+        // Send OTP function
+        function sendOTP(method, contact) {
+          fetch("/send_otp", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              method: method,
+              contact: contact,
+            }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                alert(`OTP sent successfully to your ${method}`);
+              } else {
+                alert(`Error sending OTP: ${data.message}`);
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              alert("Error sending OTP. Please try again.");
+            });
+        }
+
+        // Email validation
+        function validateEmail(email) {
+          const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return re.test(email);
+        }
+
+        // OTP input handling
+        otpInputs.forEach((input, index) => {
+          input.addEventListener("input", function (e) {
+            if (this.value.length === 1 && index < otpInputs.length - 1) {
+              otpInputs[index + 1].focus();
+            }
+          });
+
+          input.addEventListener("keydown", function (e) {
+            if (e.key === "Backspace" && !this.value && index > 0) {
+              otpInputs[index - 1].focus();
+            }
+          });
+        });
+
+        // Resend OTP
+        resendBtn.addEventListener("click", function (e) {
+          if (this.classList.contains("disabled")) return;
+
+          const contact = displayContact.textContent;
+          const method = currentLoginMethod;
+
+          startTimer();
+          sendOTP(method, contact);
+        });
+
+        // Back button
+        backBtn.addEventListener("click", function () {
+          otpForm.style.display = "none";
+          if (currentLoginMethod === "phone") {
+            phoneForm.style.display = "block";
+          } else {
+            emailForm.style.display = "block";
+          }
+          clearInterval(timerInterval);
+          otpInputs.forEach((input) => (input.value = ""));
+        });
+
+        // OTP form submission
+        otpForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const otp = Array.from(otpInputs)
+            .map((input) => input.value)
+            .join("");
+
+          if (otp.length !== 6) {
+            alert("Please enter a valid 6-digit OTP");
+            return;
+          }
+
+          // Verify OTP
+          fetch("/verify_otp", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              method: currentLoginMethod,
+              contact: displayContact.textContent,
+              otp: otp,
+            }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                alert("Login successful! Redirecting to dashboard...");
+                window.location.href =
+                  "http://127.0.0.1:5501/smart_crop_project/templates/";
+              } else {
+                alert("Invalid OTP. Please try again.");
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              alert("Error verifying OTP. Please try again.");
+            });
+        });
+      });
+    </script>
+  </body>
+</html>

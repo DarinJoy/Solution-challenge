@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>List a Tool | Smart Crop Market</title>
+    <style>
+      :root {
+        --primary-color: #2ecc71;
+        --primary-dark: #27ae60;
+        --secondary-color: #34495e;
+        --accent-color: #e74c3c;
+        --text-color: #2c3e50;
+        --light-bg: #f8f9fa;
+        --card-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s ease;
+      }
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: var(--light-bg);
+        color: var(--text-color);
+        line-height: 1.6;
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: white;
+        padding: 1rem 2rem;
+        color: var(--text-color);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .navbar-left {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+      }
+
+      .navbar a {
+        color: var(--text-color);
+        text-decoration: none;
+        margin: 0 1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        transition: var(--transition);
+        font-weight: 500;
+        position: relative;
+      }
+
+      .navbar a::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 50%;
+        background-color: var(--primary-color);
+        transition: var(--transition);
+        transform: translateX(-50%);
+      }
+
+      .navbar a:hover::after {
+        width: 80%;
+      }
+
+      .navbar button {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: var(--transition);
+        box-shadow: 0 4px 6px rgba(46, 204, 113, 0.2);
+      }
+
+      .navbar button:hover {
+        background-color: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 8px rgba(46, 204, 113, 0.3);
+      }
+
+      .hero-section {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+          url("https://images.unsplash.com/photo-1592982537447-7440770cbfc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: white;
+        padding: 6rem 2rem;
+        text-align: center;
+        margin-bottom: 4rem;
+      }
+
+      .hero-section h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        font-weight: 800;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .hero-section p {
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto;
+        opacity: 0.95;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      .form-container {
+        background-color: white;
+        padding: 2.5rem;
+        border-radius: 16px;
+        box-shadow: var(--card-shadow);
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: var(--secondary-color);
+        font-weight: 500;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: var(--transition);
+        font-family: inherit;
+      }
+
+      .form-group input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 2px rgba(46, 204, 113, 0.1);
+      }
+
+      .submit-btn {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: var(--transition);
+        width: 100%;
+        font-size: 1rem;
+        box-shadow: 0 4px 6px rgba(46, 204, 113, 0.2);
+      }
+
+      .submit-btn:hover {
+        background-color: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 8px rgba(46, 204, 113, 0.3);
+      }
+
+      .footer {
+        background: var(--secondary-color);
+        color: white;
+        text-align: center;
+        padding: 2rem;
+        margin-top: 4rem;
+      }
+
+      /* Dark Mode */
+      .dark-mode {
+        background: #1a1a1a;
+        color: #fff;
+      }
+
+      .dark-mode .navbar {
+        background: #2d2d2d;
+      }
+
+      .dark-mode .navbar a {
+        color: #fff;
+      }
+
+      .dark-mode .form-container {
+        background: #2d2d2d;
+      }
+
+      .dark-mode .form-group input {
+        background: #1a1a1a;
+        border-color: #404040;
+        color: #fff;
+      }
+
+      .dark-mode .form-group label {
+        color: #fff;
+      }
+
+      @media (max-width: 768px) {
+        .hero-section h1 {
+          font-size: 2rem;
+        }
+
+        .navbar {
+          flex-direction: column;
+          padding: 1rem;
+        }
+
+        .navbar div:last-child {
+          margin-top: 1rem;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 0.5rem;
+        }
+
+        .container {
+          padding: 1rem;
+        }
+
+        .form-container {
+          padding: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="navbar-left">
+        <strong style="font-size: 1.5rem; color: var(--primary-color)"
+          >KrushiSetu</strong
+        >
+      </div>
+      <div>
+        <a href="index.html">Home</a>
+        <a href="prices.html">Crop Prices</a>
+        <a href="rental.html">Rentals</a>
+        <a href="recommendation.html">Recommendations</a>
+        <button onclick="toggleDarkMode()">Dark Mode</button>
+      </div>
+    </div>
+
+    <div class="hero-section">
+      <h1>List Your Tool for Rent</h1>
+      <p>
+        Share your farming equipment with the community and earn extra income.
+      </p>
+    </div>
+
+    <div class="container">
+      <div class="form-container">
+        <div class="form-group">
+          <label for="toolName">Tool Name</label>
+          <input
+            type="text"
+            id="toolName"
+            placeholder="Enter the name of your tool"
+            required />
+        </div>
+        <div class="form-group">
+          <label for="ownerName">Owner Name</label>
+          <input
+            type="text"
+            id="ownerName"
+            placeholder="Enter your full name"
+            required />
+        </div>
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input
+            type="text"
+            id="location"
+            placeholder="Enter your location"
+            required />
+        </div>
+        <div class="form-group">
+          <label for="aadhar">Aadhar Number</label>
+          <input
+            type="text"
+            id="aadhar"
+            placeholder="Enter your 12-digit Aadhar number"
+            maxlength="12"
+            required />
+        </div>
+        <button class="submit-btn" onclick="listTool()">List Tool</button>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>&copy; 2025 KrushiSetu. All rights reserved.</p>
+    </div>
+
+    <script>
+      function toggleDarkMode() {
+        document.body.classList.toggle("dark-mode");
+      }
+
+      function listTool() {
+        let toolName = document.getElementById("toolName").value.trim();
+        let ownerName = document.getElementById("ownerName").value.trim();
+        let location = document.getElementById("location").value.trim();
+        let aadhar = document.getElementById("aadhar").value.trim();
+
+        if (!toolName || !ownerName || !location || aadhar.length !== 12) {
+          alert("Please fill all fields correctly.");
+          return;
+        }
+
+        let tools = JSON.parse(localStorage.getItem("rentalTools")) || [];
+        tools.push({
+          name: toolName,
+          owner: ownerName,
+          location: location,
+          aadhar: aadhar,
+          rentedCount: 0,
+        });
+        localStorage.setItem("rentalTools", JSON.stringify(tools));
+
+        alert("Tool listed successfully!");
+        document.getElementById("toolName").value = "";
+        document.getElementById("ownerName").value = "";
+        document.getElementById("location").value = "";
+        document.getElementById("aadhar").value = "";
+      }
+    </script>
+  </body>
+</html>
