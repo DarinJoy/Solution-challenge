@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Forecast for Farmers</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1>🌦️ Weather Forecast for Farmers</h1>
+        <div class="location-display">
+          <span>📍</span>
+          <span id="currentLocation">Loading location...</span>
+        </div>
+      </header>
+
+      <section class="search-section">
+        <div class="input-group">
+          <input
+            type="text"
+            id="locationInput"
+            placeholder="Enter your location" />
+          <button onclick="getWeather()">Get Weather</button>
+          <button onclick="detectLocation()">📍 Use My Location</button>
+        </div>
+      </section>
+
+      <div id="alerts"></div>
+
+      <section id="weather">
+        <div class="weather-card">
+          <div class="weather-info">
+            <h3>Current Weather</h3>
+            <div class="daily-prediction">
+              <h4>Today</h4>
+              <div class="weather-details">
+                <div class="weather-detail-item">
+                  <span>Temperature</span>
+                  <strong>--°C</strong>
+                </div>
+                <div class="weather-detail-item">
+                  <span>Humidity</span>
+                  <strong>--%</strong>
+                </div>
+                <div class="weather-detail-item">
+                  <span>Wind Speed</span>
+                  <strong>-- km/h</strong>
+                </div>
+                <div class="weather-detail-item">
+                  <span>Conditions</span>
+                  <strong>--</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="weather-info">
+            <h3>7-Day Forecast</h3>
+            <div class="daily-prediction">
+              <h4>Tomorrow</h4>
+              <div class="weather-details">
+                <div class="weather-detail-item">
+                  <span>Temperature</span>
+                  <strong>--°C</strong>
+                </div>
+                <div class="weather-detail-item">
+                  <span>Humidity</span>
+                  <strong>--%</strong>
+                </div>
+                <div class="weather-detail-item">
+                  <span>Wind Speed</span>
+                  <strong>-- km/h</strong>
+                </div>
+                <div class="weather-detail-item">
+                  <span>Conditions</span>
+                  <strong>--</strong>
+                </div>
+              </div>
+            </div>
+            <div class="daily-prediction">
+              <h4>Day 3</h4>
+              <div class="weather-details">
+                <div class="weather-detail-item">
+                  <span>Temperature</span>
+                  <strong>--°C</strong>
+                </div>
+                <div class="weather-detail-item">
+                  <span>Humidity</span>
+                  <strong>--%</strong>
+                </div>
+                <div class="weather-detail-item">
+                  <span>Wind Speed</span>
+                  <strong>-- km/h</strong>
+                </div>
+                <div class="weather-detail-item">
+                  <span>Conditions</span>
+                  <strong>--</strong>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="daily-prediction">
+              <h4>Day 4</h4>
+              <div class="weather-details">
+                <div class="weather-detail-item">
+                  <span>Temperature</span>
+                  <strong>--°C</strong>
+                </div>
+                <div class="weather-detail-item">
+                  <span>Humidity</span>
+                  <strong>--%</strong>
+                </div>
+                <div class="weather-detail-item">
+                  <span>Wind Speed</span>
+                  <strong>-- km/h</strong>
+                </div>
+                <div class="weather-detail-item">
+                  <span>Conditions</span>
+                  <strong>--</strong>
+                </div>
+              </div>
+            </div>
+            <div class="daily-prediction">
+              <h4>Day 5</h4>
+              <div class="weather-details">
+                <div class="weather-detail-item">
+                  <span>Temperature</span>
+                  <strong>--°C</strong>
+                </div>
+                <div class="weather-detail-item">
+                  <span>Humidity</span>
+                  <strong>--%</strong>
+                </div>
+                <div class="weather-detail-item">
+                  <span>Wind Speed</span>
+                  <strong>-- km/h</strong>
+                </div>
+                <div class="weather-detail-item">
+                  <span>Conditions</span>
+                  <strong>--</strong>
+                </div>
+              </div>
+            </div>
+            <div class="daily-prediction">
+              <h4>Day 6</h4>
+              <div class="weather-details">
+                <div class="weather-detail-item">
+                  <span>Temperature</span>
+                  <strong>--°C</strong>
+                </div>
+                <div class="weather-detail-item">
+                  <span>Humidity</span>
+                  <strong>--%</strong>
+                </div>
+                <div class="weather-detail-item">
+                  <span>Wind Speed</span>
+                  <strong>-- km/h</strong>
+                </div>
+                <div class="weather-detail-item">
+                  <span>Conditions</span>
+                  <strong>--</strong>
+                </div>
+              </div>
+            </div>
+            <div class="daily-prediction">
+              <h4>Day 7</h4>
+              <div class="weather-details">
+                <div class="weather-detail-item">
+                  <span>Temperature</span>
+                  <strong>--°C</strong>
+                </div>
+                <div class="weather-detail-item">
+                  <span>Humidity</span>
+                  <strong>--%</strong>
+                </div>
+                <div class="weather-detail-item">
+                  <span>Wind Speed</span>
+                  <strong>-- km/h</strong>
+                </div>
+                <div class="weather-detail-item">
+                  <span>Conditions</span>
+                  <strong>--</strong>
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
